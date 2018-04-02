@@ -1,3 +1,4 @@
+#include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <ArduinoJson.h>
 #include <Ticker.h>
@@ -112,9 +113,10 @@ void setup() {
 
   //---------------------------------------------------------------
 
-  WiFi.softAP(ssid, password);
+  WiFi.hostname("NonoControl");
+  WiFi.begin(ssid, password);
 
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.println("\n\nWiFi signal strength (RSSI): " + String(WiFi.RSSI()) + " dBm");
 
   //---------------------------------------------------------------
@@ -182,11 +184,11 @@ void stopFast()
 {
   MOTORS_L_IN1_VAL = 1;
   MOTORS_L_IN2_VAL = 1;
-  MOTORS_L_PWM_VAL = 1024;
+  MOTORS_L_PWM_VAL = 1;
 
   MOTORS_R_IN1_VAL = 1;
   MOTORS_R_IN2_VAL = 1;
-  MOTORS_R_PWM_VAL = 1024;
+  MOTORS_R_PWM_VAL = 1;
 
   updateState();
 }
