@@ -68,3 +68,64 @@
 ### Połączenia przewodów
 
 ![download](https://user-images.githubusercontent.com/11798406/36346580-c54d32fe-1440-11e8-8d02-fcc10ce7f97c.png)
+
+using RestSharp;
+using RestSharp.Authenticators;
+using System;
+using System.IO;
+using System.Text;
+
+namespace mailer
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                if (args.Length < 4)
+                    throw new Exception("Nie podano wszystkich parametrów. Sprawdź czy wprowadzono: <email> <tytul> <plik.txt> <timeout (s)>");
+
+                string address = args[0];
+                string title = args[1];
+                string file = args[2];
+                int timeout = int.Parse(args[3]);
+
+                using (StreamReader sr = new StreamReader(file))
+                {
+                    String text = File.ReadAllText(file, Encoding.UTF8);
+                    while (true)
+                    {
+                        SendSimpleMessage(address, title, text);
+                        System.Threading.Thread.Sleep(timeout * 1000);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        public static IRestResponse SendSimpleMessage(string address, string title, string text)
+        {
+            var client = new RestClient
+            {
+                BaseUrl = new Uri("https://api.mailgun.net/v3"),
+                Authenticator =
+                new HttpBasicAuthenticator("api", "a2811ac192efa34b91eaf6ffa73aad2f-52cbfb43-7fd03e6f")
+            };
+
+            var request = new RestRequest();
+            request.AddParameter("domain", "sandbox0b7ddebaa735417988ad64cb618cee2a.mailgun.org", ParameterType.UrlSegment);
+            request.Resource = "{domain}/messages";
+            request.AddParameter("from", "Mailgun Sandbox <postmaster@sandbox0b7ddebaa735417988ad64cb618cee2a.mailgun.org>");
+            request.AddParameter("to", address);
+            request.AddParameter("subject", $"{title}_{Guid.NewGuid()}");
+            request.AddParameter("text", text);
+            request.Method = Method.POST;
+            return client.Execute(request);
+        }
+    }
+}
+
