@@ -1,0 +1,161 @@
+
+Entering CLI Mode, type 'exit' to return, or 'help'
+
+# diff all
+
+# version
+# INAV/KAKUTEF7HDV 3.0.2 Sep 15 2021 / 09:53:21 (66011184)
+# GCC-9.3.1 20200408 (release)
+
+# start the command batch
+batch start
+
+# reset configuration to default settings
+defaults noreboot
+
+# resources
+
+# mixer
+
+# servo mix
+smix reset
+
+smix 0 3 4 100 0 -1
+smix 1 4 6 100 0 -1
+smix 2 5 5 100 0 -1
+smix 3 6 16 100 0 -1
+
+# servo
+
+# safehome
+
+# logic
+logic 0 1 -1 2 2 32 0 95 0
+logic 1 1 -1 12 4 0 0 0 0
+logic 2 1 0 18 0 0 1 4 0
+logic 3 1 1 18 0 0 0 1000 0
+logic 4 1 -1 38 0 10 5 0 0
+
+# gvar
+
+# pid
+
+# feature
+feature -BLACKBOX
+feature -AIRMODE
+feature MOTOR_STOP
+feature PWM_OUTPUT_ENABLE
+
+# beeper
+
+# map
+
+# serial
+serial 1 64 115200 115200 0 115200
+serial 5 0 115200 115200 0 115200
+
+# led
+
+# color
+
+# mode_color
+
+# aux
+
+# adjrange
+
+# rxrange
+
+# temp_sensor
+
+# wp
+#wp 0 invalid
+
+# osd_layout
+
+# master
+set looptime = 500
+set gyro_main_lpf_hz = 110
+set gyro_main_lpf_type = PT1
+set dynamic_gyro_notch_enabled = ON
+set dynamic_gyro_notch_q = 250
+set dynamic_gyro_notch_min_hz = 120
+set acc_hardware = NONE
+set align_mag = CW270FLIP
+set mag_hardware = NONE
+set baro_hardware = NONE
+set rssi_channel = 17
+set serialrx_provider = CRSF
+set blackbox_rate_denom = 2
+set motor_pwm_rate = 50
+set motor_pwm_protocol = STANDARD
+set throttle_idle =  0.000
+set motor_poles = 4
+set failsafe_procedure = DROP
+set align_board_roll = -132
+set align_board_pitch = -44
+set platform_type = ROVER
+set model_preview_type = 31
+set applied_defaults = 2
+set airmode_type = THROTTLE_THRESHOLD
+set nav_fw_loiter_radius = 100
+
+# profile
+profile 1
+
+set mc_p_pitch = 44
+set mc_i_pitch = 75
+set mc_d_pitch = 25
+set mc_i_roll = 60
+set mc_p_yaw = 35
+set mc_i_yaw = 80
+set fw_p_roll = 3
+set dterm_lpf_hz = 110
+set dterm_lpf_type = PT1
+set dterm_lpf2_hz = 170
+set dterm_lpf2_type = PT1
+set nav_fw_pos_z_p = 69
+set nav_fw_heading_p = 63
+set d_boost_factor =  1.500
+set antigravity_gain =  2.000
+set antigravity_accelerator =  5.000
+set setpoint_kalman_enabled = ON
+set setpoint_kalman_q = 200
+set tpa_rate = 20
+set tpa_breakpoint = 1200
+set rc_yaw_expo = 70
+set roll_rate = 70
+set pitch_rate = 70
+set yaw_rate = 60
+
+# profile
+profile 2
+
+set manual_roll_rate = 4
+
+# profile
+profile 3
+
+set fw_p_roll = 13
+set d_boost_factor =  3.000
+
+# battery_profile
+battery_profile 1
+
+
+# battery_profile
+battery_profile 2
+
+
+# battery_profile
+battery_profile 3
+
+
+# restore original profile selection
+profile 1
+battery_profile 3
+
+# save configuration
+save
+
+# 
