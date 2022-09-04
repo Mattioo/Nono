@@ -192,13 +192,15 @@ int computeServoAngle(int currentAngle, int nextAngle){
 }
 
 void saveInHistory(){
-  History[HistoryIndex].DIRECT_LM = DIRECT_LM;
-  History[HistoryIndex].DIRECT_RM = DIRECT_RM;
-  History[HistoryIndex].LM = LM;
-  History[HistoryIndex].RM = RM;
-
-  HistoryIndex = ++HistoryIndex % HISTORY_SIZE;
-  HistoryRowCounter = 0;
+  if (LM > 0 || RM > 0) {
+    History[HistoryIndex].DIRECT_LM = DIRECT_LM;
+    History[HistoryIndex].DIRECT_RM = DIRECT_RM;
+    History[HistoryIndex].LM = LM;
+    History[HistoryIndex].RM = RM;
+  
+    HistoryIndex = ++HistoryIndex % HISTORY_SIZE;
+    HistoryRowCounter = 0;
+  }
 }
 
 void reverseHistory(){
