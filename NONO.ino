@@ -6,10 +6,13 @@
 #define RM_M2_EN_PIN 4
 #define RM_M2_PWM_PIN 5
 
-#define CRSF_FRESH_TIME_US 4000
-#define CRSF_SIGNAL_OFSET 50
+#define BUZZER_PIN 8
+
 #define SERVO_PIN_H 9
 #define SERVO_PIN_V 10
+
+#define CRSF_FRESH_TIME_US 4000
+#define CRSF_SIGNAL_OFSET 50
 
 #define HOME_HORIZONTAL 90
 #define HOME_VERTICAL 90
@@ -38,12 +41,39 @@
   ARM    - CH[6] IN [CRSF_CHANNEL_VALUE_MID, CRSF_CHANNEL_VALUE_MAX]
   ULTRASONIC_SENSOR_ENABLED    - CH[5] = CRSF_CHANNEL_VALUE_MAX
   HISTORY_REVERSE_ENABLED - CH[8]
-  X - CH[7]
+
+  LIGHT MODES:
+
+  1. OFF  CH[7] = CRSF_CHANNEL_VALUE_MIN
+  2. ON   CH[7] = CRSF_CHANNEL_VALUE_MID
+  3. AUTO CH[7] = CRSF_CHANNEL_VALUE_MAX
 
   DRIVING MODES:
 
   1. SOFT CH[6] = CRSF_CHANNEL_VALUE_MID
   2. HARD CH[6] = CRSF_CHANNEL_VALUE_MAX
+
+  *******************************************************************
+
+  PINS:
+
+  [ARDUINO]
+
+  5V <- 5V
+  GND <- GND
+
+  9 <- SERV_H #ORANGE
+  10 <- SERV_V #YELLOW
+
+  19 #RX1 <- XF Nano 45 #TX RED
+  18 #TX1 <- XF Nano 45 #RX BLUE
+
+  MOTORS
+
+  2 <- MOTOR CONTROLLER #M2_EN GREEN
+  3 <- MOTOR CONTROLLER #M2_PWM BLUE
+  4 <- MOTOR CONTROLLER #M1_EN VIOLET
+  5 <- MOTOR CONTROLLER #M1_PWM GREY
 */
 
 // HISTORY STRUCTURE
@@ -64,6 +94,7 @@ Servo CAMERA_V;
 // CRSF RECEIVER
 CrsfSerial crsf(Serial1, CRSF_BAUDRATE);
 
+volatile bool INIT = true;
 volatile bool HEARTBIT = false;
 volatile bool ARM = false;
 volatile bool ULTRASONIC_SENSOR_ENABLED = false;
@@ -97,6 +128,9 @@ void setup() {
 }
 
 void configure(){
+  // SET BUZZER PIN
+  pinMode(BUZZER_PIN, OUTPUT);
+  
   // SET PINS FOR MOTORS CONTROL AS OUTPUT
   pinMode(LM_M1_EN_PIN, OUTPUT);
   pinMode(LM_M1_PWM_PIN, OUTPUT);
@@ -113,13 +147,15 @@ void configure(){
   CAMERA_V.write(SERVO_ANGLE_V);
 }
 
-void loop() {
+void loop() { 
   if (HEARTBIT) {
     int mode = crsf.getChannel(6);
+
+    INIT = false;
     ARM = (mode == CRSF_CHANNEL_VALUE_MID || mode == CRSF_CHANNEL_VALUE_MAX); // SELECTED
     ULTRASONIC_SENSOR_ENABLED = crsf.getChannel(5) == CRSF_CHANNEL_VALUE_MAX; // PUSHED
     HISTORY_REVERSE_ENABLED = crsf.getChannel(8) == CRSF_CHANNEL_VALUE_MAX; // PUSHED
-    
+
     if (ARM) {
       scaleSignals(
         crsf.getChannel(1), // MOVE-Y
@@ -147,9 +183,16 @@ void loop() {
     
   setMotors();
   setServos();
+  setBuzzer();
   debug();
 
   crsf.loop();
+}
+
+void setBuzzer() {
+  if (INIT == false && HEARTBIT == false) {
+    
+  }
 }
 
 void setHomeForCameraPosition() {
@@ -282,20 +325,15 @@ void scaleSignals(int y, int x, int h, int v, int mode){
 
 void checkDistance(){
   delay(20);
-  do{
-    for(int i=0;i<4;i++)
+  if (Serial2.available() > 0) {
+    do
     {
-      uart[i]=Serial2.read();
+      for(int i=0;i<4;i++)
+        uart[i]=Serial2.read();
     }
-  }while(Serial2.read()==0xff);
-
-  Serial2.flush();
-
-  if(uart[0]==0xff)
-  {
-    int sum=(uart[0]+uart[1]+uart[2])&0x00FF;
-    if(sum==uart[3])
-    {
+    while(Serial2.read()==0xff);
+    Serial2.flush();
+    if(uart[0]==0xff && (uart[0]+uart[1]+uart[2])&0x00FF == uart[3]) {
       DISTANCE = ((uart[1]<<8)+uart[2])/10;
     }
   }
