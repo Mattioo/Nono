@@ -6,10 +6,11 @@
 #define RM_M2_EN_PIN 4
 #define RM_M2_PWM_PIN 5
 
-#define BUZZER_PIN 8
+#define BUZZER_PIN 6
+#define LIGHT_PIN 7
 
-#define SERVO_PIN_H 9
-#define SERVO_PIN_V 10
+#define SERVO_PIN_H 8
+#define SERVO_PIN_V 9
 
 #define CRSF_FRESH_TIME_US 4000
 #define CRSF_SIGNAL_OFSET 50
@@ -62,8 +63,11 @@
   5V <- 5V
   GND <- GND
 
-  9 <- SERV_H #ORANGE
-  10 <- SERV_V #YELLOW
+  6 <- BUZZER #YELLOW
+  7 <- LIGHT #BROWN
+
+  8 <- SERV_H #ORANGE
+  9 <- SERV_V #YELLOW
 
   19 #RX1 <- XF Nano 45 #TX RED
   18 #TX1 <- XF Nano 45 #RX BLUE
@@ -130,6 +134,9 @@ void setup() {
 void configure(){
   // SET BUZZER PIN
   pinMode(BUZZER_PIN, OUTPUT);
+
+  // SET LIGHT PIN
+  pinMode(LIGHT_PIN, OUTPUT);
   
   // SET PINS FOR MOTORS CONTROL AS OUTPUT
   pinMode(LM_M1_EN_PIN, OUTPUT);
@@ -183,6 +190,7 @@ void loop() {
     
   setMotors();
   setServos();
+  setLight();
   setBuzzer();
   debug();
 
@@ -190,9 +198,17 @@ void loop() {
 }
 
 void setBuzzer() {
-  if (INIT == false && HEARTBIT == false) {
-    
-  }
+  if (INIT == false && HEARTBIT == false)
+    digitalWrite(BUZZER_PIN, LOW);
+  else
+    digitalWrite(BUZZER_PIN, HIGH);
+}
+
+void setLight() {
+  digitalWrite(LIGHT_PIN, crsf.getChannel(7) == CRSF_CHANNEL_VALUE_MIN
+    ? HIGH
+    : LOW
+  );
 }
 
 void setHomeForCameraPosition() {
