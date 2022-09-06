@@ -122,6 +122,7 @@ int SERVO_ANGLE_H = HOME_HORIZONTAL, SERVO_ANGLE_V = HOME_VERTICAL + HOME_VERTIC
 
 void setup() {
   Serial.begin(115200);
+  Serial2.begin(9600);
   
   // START LISTEN CRSF SIGNAL
   crsf.onLinkDown = &linkDown;
@@ -341,20 +342,25 @@ void scaleSignals(int y, int x, int h, int v, int mode){
 
 void checkDistance(){
   delay(20);
-  if (Serial2.available() > 0) {
-    do
+  do{
+    for(int i=0;i<4;i++)
     {
-      for(int i=0;i<4;i++)
-        uart[i]=Serial2.read();
+      uart[i]=Serial2.read();
     }
-    while(Serial2.read()==0xff);
-    Serial2.flush();
-    if(uart[0]==0xff && (uart[0]+uart[1]+uart[2])&0x00FF == uart[3]) {
+  }while(Serial2.read()==0xff);
+
+  Serial2.flush();
+
+  if(uart[0]==0xff)
+  {
+    int sum=(uart[0]+uart[1]+uart[2])&0x00FF;
+    if(sum==uart[3])
+    {
       DISTANCE = ((uart[1]<<8)+uart[2])/10;
     }
   }
 }
 
 void debug(){
-  Serial.println("LM: " + String(LM) + " RM: " + String(RM) + " H: " + String(SERVO_ANGLE_H) + " V: " + String(SERVO_ANGLE_V) + " DIRECT_LM: " + String(DIRECT_LM)+ " DIRECT_RM: " + String(DIRECT_RM));
+  Serial.println("LM: " + String(LM) + " RM: " + String(RM) + " H: " + String(SERVO_ANGLE_H) + " V: " + String(SERVO_ANGLE_V) + " DIRECT_LM: " + String(DIRECT_LM) + " DIRECT_RM: " + String(DIRECT_RM) + " DISTANCE: " + String(DISTANCE));
 }
