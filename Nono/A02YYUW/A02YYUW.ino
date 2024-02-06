@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include "A02YYUW.h"
 
 A02YYUW a02yyuw(Serial1);
