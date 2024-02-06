@@ -1,7 +1,7 @@
 #ifndef SC08A_h
 #define SC08A_h
 
-#include "Arduino.h"
+#include <Arduino.h>
 
 struct Positions {
     Positions() : Minimum(0), Maximum(8000), Home(4000) {}
