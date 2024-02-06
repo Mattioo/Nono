@@ -4,7 +4,6 @@
 A02YYUW a02yyuw(Serial1);
 
 void setup() {
-  Serial.begin(115200);
   a02yyuw.SetLogger(Serial);
   a02yyuw.Init();
 }
