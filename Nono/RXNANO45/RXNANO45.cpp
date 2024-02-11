@@ -38,10 +38,12 @@ State RXNANO45::GetState() {
     receiver.getChannel(5),
     receiver.getChannel(6),
     receiver.getChannel(7),
-    receiver.getChannel(8)
+    receiver.getChannel(8),
+    receiver.getChannel(10),
+    receiver.getChannel(9)
   );
 
-  log("[RXNANO45] MOVE_Y: " + String(state.Move_Y) + " MOVE_X: " + String(state.Move_X) + " CAMERA_Y: " + String(state.Camera_Y) + " CAMERA_X: " + String(state.Camera_X) + " A: " + String(state.A) + " B: " + String(state.B) + " C: " + String(state.C) + " D: " + String(state.D));
+  log("[RXNANO45] MOVE_Y: " + String(state.Move_Y) + " MOVE_X: " + String(state.Move_X) + " CAMERA_Y: " + String(state.Camera_Y) + " CAMERA_X: " + String(state.Camera_X) + " A: " + String(state.A) + " B: " + String(state.B) + " C: " + String(state.C) + " D: " + String(state.D) + " E: " + String(state.E) + " F: " + String(state.F));
   return state;
 }
 

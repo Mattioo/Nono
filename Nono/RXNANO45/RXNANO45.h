@@ -5,7 +5,7 @@
 #include "CrsfSerial.h"
 
 struct State {
-  State(int move_y, int move_x, int camera_y, int camera_x, int a, int b, int c, int d)
+  State(int move_y, int move_x, int camera_y, int camera_x, int a, int b, int c, int d, int e, int f)
   {
     Move_Y = move_y;
     Move_X = move_x;
@@ -16,6 +16,8 @@ struct State {
     B = b;
     C = c;
     D = d;
+    E = e;
+    F = f;
   }
 
   int Move_Y;
@@ -26,6 +28,8 @@ struct State {
   int B;
   int C;
   int D;
+  int E;
+  int F;
 };
 
 class RXNANO45 {
