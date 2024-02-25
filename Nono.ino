@@ -94,7 +94,9 @@ void loop() {
         bts7960.Movement(controller.Move_Y, controller.Move_X);
       }
       
-      sc08a.Set({ servo_channels[0] }, CRSF_CHANNEL_VALUE_MIN + CRSF_CHANNEL_VALUE_MAX - controller.Camera_Y);
+      if (controller.Camera_Y >= CRSF_CHANNEL_VALUE_MID) {
+        sc08a.Set({ servo_channels[0] }, controller.Camera_Y);
+      }
       sc08a.Set({ servo_channels[1] }, CRSF_CHANNEL_VALUE_MIN + CRSF_CHANNEL_VALUE_MAX - controller.Camera_X);
     }
   }
