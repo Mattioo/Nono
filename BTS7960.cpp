@@ -125,12 +125,12 @@ BTS7960State BTS7960::scaleSignals(int y, int x) {
   else {
     if (absX > off_signal_value) {
       if (directX == 1) {
-        result.DIRECT_LM = HIGH;
-        result.DIRECT_RM = LOW;
-      }
-      else {
         result.DIRECT_LM = LOW;
         result.DIRECT_RM = HIGH;
+      }
+      else {
+        result.DIRECT_LM = HIGH;
+        result.DIRECT_RM = LOW;
       }
     }
     result.LM = result.RM = forceY;
