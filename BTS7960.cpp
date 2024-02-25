@@ -44,6 +44,8 @@ void BTS7960::Init() {
   if (HistorySize > 0) {
     history = new BTS7960State[HistorySize];
   }
+  pinMode(left_motor_en_pin, OUTPUT);
+  pinMode(right_motor_en_pin, OUTPUT);
 }
 
 void BTS7960::Movement(int y, int x) {
@@ -105,8 +107,8 @@ BTS7960State BTS7960::scaleSignals(int y, int x) {
   BTS7960State result;
 
   result.DIRECT_LM = result.DIRECT_RM = (absY != 0) && signalY > mid_signal_value
-    ? HIGH
-    : LOW;
+    ? LOW
+    : HIGH;
 
   // SOFT DRIVING MODE
   if (movement_mode == min_signal_value) {
