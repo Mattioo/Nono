@@ -4,7 +4,7 @@
 #include "BTS7960.h"
 
 #define BUZZER_PIN 6
-#define LIGHT_PIN 7
+#define LIGHT_PIN 8
 
 #define CRSF_CHANNEL_VALUE_OFF 50
 #define BTS7960_MIN_DISTANCE 30
