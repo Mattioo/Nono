@@ -93,11 +93,13 @@ void loop() {
       if (!checkDistance(controller.D) || a02yyuw.DistanceReceived() && (controller.Move_Y <= CRSF_CHANNEL_VALUE_MID || a02yyuw.GetDistance() >= BTS7960_MIN_DISTANCE)) {
         bts7960.Movement(controller.Move_Y, controller.Move_X);
       }
-      
-      if (controller.Camera_Y >= CRSF_CHANNEL_VALUE_MID) {
+
+      if (controller.Camera_Y >= CRSF_CHANNEL_VALUE_MID && controller.Camera_Y <= (CRSF_CHANNEL_VALUE_MID + (CRSF_CHANNEL_VALUE_MAX - CRSF_CHANNEL_VALUE_MID)/2)) {
         sc08a.Set({ servo_channels[0] }, controller.Camera_Y);
       }
-      sc08a.Set({ servo_channels[1] }, CRSF_CHANNEL_VALUE_MIN + CRSF_CHANNEL_VALUE_MAX - controller.Camera_X);
+      if (controller.Camera_X >= (CRSF_CHANNEL_VALUE_MIN + (CRSF_CHANNEL_VALUE_MID - CRSF_CHANNEL_VALUE_MIN)/2) && controller.Camera_X <= (CRSF_CHANNEL_VALUE_MID + (CRSF_CHANNEL_VALUE_MAX - CRSF_CHANNEL_VALUE_MID)/2)) {
+        sc08a.Set({ servo_channels[1] }, CRSF_CHANNEL_VALUE_MIN + CRSF_CHANNEL_VALUE_MAX - controller.Camera_X);
+      }
     }
   }
   else {
