@@ -14,8 +14,8 @@ BTS7960::~BTS7960() {
   history = nullptr;
 }
 
-void BTS7960::SetLogger(HardwareSerial& serial) {
-    logger = &serial;
+void BTS7960::SetLogger(HardwareSerial* serial) {
+    logger = serial;
 }
 
 void BTS7960::SetPins(unsigned int left_en, unsigned int left_pwm, unsigned int right_en, unsigned int right_pwm) {

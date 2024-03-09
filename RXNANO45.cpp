@@ -7,8 +7,8 @@ RXNANO45::RXNANO45(HardwareSerial& serial) : receiver(serial, CRSF_BAUDRATE) {
 
 }
 
-void RXNANO45::SetLogger(HardwareSerial& serial) {
-    logger = &serial;
+void RXNANO45::SetLogger(HardwareSerial* serial) {
+    logger = serial;
 }
 
 void RXNANO45::Init() {

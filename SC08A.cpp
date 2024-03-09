@@ -15,8 +15,8 @@ void SC08A::SetChannels(const std::vector<unsigned char>& channelsToActivate) {
     channels = channelsToActivate;
 }
 
-void SC08A::SetLogger(HardwareSerial& serial) {
-    logger = &serial;
+void SC08A::SetLogger(HardwareSerial* serial) {
+    logger = serial;
 }
 
 void SC08A::SetInputRange(int min, int max) {

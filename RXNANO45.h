@@ -35,7 +35,7 @@ struct CrsfSerialState {
 class RXNANO45 {
 public:
   RXNANO45(HardwareSerial& serial);
-  void SetLogger(HardwareSerial& logger);
+  void SetLogger(HardwareSerial* serial = nullptr);
   void Init();
   int GetChannel(unsigned int channel);
   CrsfSerialState GetState();

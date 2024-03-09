@@ -22,10 +22,10 @@ struct SignalRange {
 
 class SC08A {
 public:
-    SC08A(HardwareSerial& serial = Serial1);
+    SC08A(HardwareSerial& serial);
     ~SC08A();
     void SetChannels(const std::vector<unsigned char>& newChannels);
-    void SetLogger(HardwareSerial& logger);
+    void SetLogger(HardwareSerial* serial = nullptr);
     void SetInputRange(int min, int max);
     void Init();
     void Set(const std::vector<unsigned char>& channels, int position, unsigned char velocity = 100);

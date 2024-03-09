@@ -17,7 +17,7 @@ class BTS7960 {
 public:
   BTS7960();
   ~BTS7960();
-  void SetLogger(HardwareSerial& logger);
+  void SetLogger(HardwareSerial* serial = nullptr);
   void SetPins(unsigned int left_en, unsigned int left_pwm, unsigned int right_en, unsigned int right_pwm);
   void SetInputRange(int min, int mid, int max, int offset);
   void SetHistorySize(unsigned int size);

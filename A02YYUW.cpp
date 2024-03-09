@@ -4,8 +4,8 @@ A02YYUW::A02YYUW(HardwareSerial& serial) : uart(&serial), distance(0), dataIndex
 
 }
 
-void A02YYUW::SetLogger(HardwareSerial& serial) {
-    logger = &serial;
+void A02YYUW::SetLogger(HardwareSerial* serial) {
+    logger = serial;
 }
 
 void A02YYUW::Init() {

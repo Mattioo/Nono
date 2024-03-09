@@ -6,7 +6,7 @@
 class A02YYUW {
 public:
   A02YYUW(HardwareSerial& serial);
-  void SetLogger(HardwareSerial& logger);
+  void SetLogger(HardwareSerial* serial = nullptr);
   void Init();
   void ReceiveData();
   float GetDistance();
