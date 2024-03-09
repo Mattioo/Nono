@@ -99,6 +99,7 @@ void sendTelemetry(uint8_t voltage) {
   osd.SendVariant();
   osd.SendVersion();
   osd.SendName();
+  osd.SetStatusDJI(0x00000003);
   osd.SendStatusDJI();
   osd.SetAnalog(voltage);
   osd.SendAnalog();
