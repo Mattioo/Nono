@@ -15,9 +15,9 @@ uint32_t flightModeFlags = 0x00000002; // DISARM
 bool isInit = true;
 std::vector<unsigned char> servo_channels = {1, 2};
 
+A02YYUW a02yyuw(Serial);
 RXNANO45 rxnano45(Serial1);
 SC08A sc08a(Serial2);
-A02YYUW a02yyuw(Serial);
 OSD osd(Serial3, 500);
 BTS7960 bts7960;
 
@@ -93,7 +93,7 @@ bool check_distance(int signal) {
 }
 
 // EVENT
-void serialEvent3() {
+void serialEvent() {
   a02yyuw.ReceiveData();
 }
 
