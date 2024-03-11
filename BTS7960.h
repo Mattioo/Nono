@@ -1,6 +1,8 @@
 #ifndef BTS7960_H
 #define BTS7960_H
+
 #define MAX_SIGNAL_MOVE 255
+#define BTS7960_MIN_DISTANCE 30
 
 #include <Arduino.h>
 
@@ -25,11 +27,9 @@ public:
 
   void Init();
   void Movement(int y, int x);
+  bool CanReverse();
   void Reverse();
   void Stop();
-
-  static unsigned int HistorySize;
-  static unsigned int HistoryCounter;
 
 private:
   HardwareSerial* logger;
@@ -41,6 +41,9 @@ private:
 
   BTS7960State* history; 
   unsigned int history_index;
+
+  static unsigned int history_size;
+  static unsigned int history_counter;
 
   int movement_mode;
 

@@ -8,17 +8,15 @@
 
 class OSD {
 public:
-  OSD(HardwareSerial& serial, unsigned long interval = 1000);
+  OSD(HardwareSerial& serial, uint8_t voltage, uint16_t batteryCapacity, unsigned long interval = 1000);
   void SetLogger(HardwareSerial* serial = nullptr);
   void Init();
   void Loop();
 
   void Set_Name(String craftName);
-  void Set_Status(uint32_t flightModeFlags);
-  void Set_Status_Ex(uint32_t flightModeFlags);
-  void Set_Analog(uint8_t voltage, uint16_t rssi = 0, int16_t amperage = 0, uint16_t mAhDrawn = 0);
-  void Set_Battery_State(uint8_t voltage, uint16_t batteryCapacity, uint8_t batteryState = 0, int16_t amperage = 0, uint16_t mAhDrawn = 0);
-  
+  void Set_Arm(bool state);
+  void Set_Battery_Voltage(uint8_t voltage, uint8_t batteryState = BATTERY_OK);
+
 private:
   HardwareSerial* uart;
   HardwareSerial* logger;
@@ -42,7 +40,11 @@ private:
 
   void set_api_version();
   void set_fc_version();
-  void set_fc_variant(); 
+  void set_fc_variant();
+  void set_status(uint32_t flightModeFlags);
+  void set_status_ex(uint32_t flightModeFlags);
+  void set_analog(uint8_t voltage, uint16_t rssi = 0, int16_t amperage = 0, uint16_t mAhDrawn = 0);
+  void set_battery_state(uint8_t voltage, uint16_t batteryCapacity, uint8_t batteryState = 0, int16_t amperage = 0, uint16_t mAhDrawn = 0);
   void set_osd_config();
   void set_osd_config_positions();
 

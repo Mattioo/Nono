@@ -1,11 +1,14 @@
 #include "OSD.h"
 
-OSD::OSD(HardwareSerial& serial, unsigned long interval) : uart(&serial), _interval(interval) {
+OSD::OSD(HardwareSerial& serial, uint8_t voltage, uint16_t batteryCapacity, unsigned long interval) : uart(&serial), _interval(interval) {
     OSD::set_api_version();
     OSD::set_fc_version();
-    OSD::set_fc_variant();   
+    OSD::set_fc_variant();
+    OSD::set_analog(voltage);
+    OSD::set_battery_state(voltage, batteryCapacity);
     OSD::set_osd_config();
     OSD::set_osd_config_positions();
+    OSD::Set_Arm(false);
 }
 
 void OSD::SetLogger(HardwareSerial* serial) {
@@ -45,39 +48,19 @@ void OSD::Set_Name(String craftName) {
   memcpy(name.craft_name, craftName.c_str(), len);
 }
 
-void OSD::Set_Status(uint32_t flightModeFlags) {
-  status.cycleTime = 0x0080;
-  status.i2cErrorCounter = 0;
-  status.sensor = 0x23;
-  status.flightModeFlags = flightModeFlags;
-  status.configProfileIndex = 1;
+void OSD::Set_Arm(bool state) {
+  uint32_t flightModeFlags = state
+    ? 0x00000003
+    : 0x00000002;
+  OSD::set_status(flightModeFlags);
+  OSD::set_status_ex(flightModeFlags);
 }
 
-void OSD::Set_Status_Ex(uint32_t flightModeFlags) {
-  status_ex.cycleTime = 0x0080;
-  status_ex.i2cErrorCounter = 0;
-  status_ex.sensor = 0x23;
-  status_ex.flightModeFlags = flightModeFlags;
-  status_ex.configProfileIndex = 1;
-  status_ex.averageSystemLoadPercent = 10;
-  status_ex.armingFlags = 0x0303;
-  status_ex.accCalibrationAxisFlags = 0;
-}
-
-void OSD::Set_Analog(uint8_t voltage, uint16_t rssi, int16_t amperage, uint16_t mAhDrawn) {
+void OSD::Set_Battery_Voltage(uint8_t voltage, uint8_t batteryState) {
   analog.vbat = voltage;
-  analog.rssi = rssi;
-  analog.amperage = amperage;
-  analog.mAhDrawn = mAhDrawn;
-}
-
-void OSD::Set_Battery_State(uint8_t voltage, uint16_t batteryCapacity, uint8_t batteryState, int16_t amperage, uint16_t mAhDrawn) {
-  battery_state.amperage = amperage;
-  battery_state.batteryVoltage = (uint16_t)(voltage * 10);
-  battery_state.mAhDrawn = mAhDrawn;
-  battery_state.batteryCellCount = get_cell_count(voltage);
-  battery_state.batteryCapacity = batteryCapacity;
-  battery_state.batteryState = batteryState;
+  battery_state.battery_voltage = (uint16_t)(voltage * 10);
+  battery_state.battery_cell_count = get_cell_count(voltage);
+  battery_state.battery_state = batteryState;
 }
 
 void OSD::set_api_version() {
@@ -96,6 +79,41 @@ void OSD::set_fc_variant() {
   memset(fc_variant.flightControlIdentifier, 0, sizeof(fc_variant.flightControlIdentifier));
   String variant = "BFTL";
   memcpy(fc_variant.flightControlIdentifier, variant.c_str(), variant.length());
+}
+
+void OSD::set_status(uint32_t flightModeFlags) {
+  status.cycleTime = 0x0080;
+  status.i2cErrorCounter = 0;
+  status.sensor = 0x23;
+  status.flightModeFlags = flightModeFlags;
+  status.configProfileIndex = 1;
+}
+
+void OSD::set_status_ex(uint32_t flightModeFlags) {
+  status_ex.cycleTime = 0x0080;
+  status_ex.i2cErrorCounter = 0;
+  status_ex.sensor = 0x23;
+  status_ex.flightModeFlags = flightModeFlags;
+  status_ex.configProfileIndex = 1;
+  status_ex.averageSystemLoadPercent = 10;
+  status_ex.armingFlags = 0x0303;
+  status_ex.accCalibrationAxisFlags = 0;
+}
+
+void OSD::set_analog(uint8_t voltage, uint16_t rssi, int16_t amperage, uint16_t mAhDrawn) {
+  analog.vbat = voltage;
+  analog.rssi = rssi;
+  analog.amperage = amperage;
+  analog.mAhDrawn = mAhDrawn;
+}
+
+void OSD::set_battery_state(uint8_t voltage, uint16_t batteryCapacity, uint8_t batteryState, int16_t amperage, uint16_t mAhDrawn) {
+  battery_state.amperage = amperage;
+  battery_state.battery_voltage = (uint16_t)(voltage * 10);
+  battery_state.mAh_drawn = mAhDrawn;
+  battery_state.battery_cell_count = get_cell_count(voltage);
+  battery_state.battery_capacity = batteryCapacity;
+  battery_state.battery_state = batteryState;
 }
 
 void OSD::set_osd_config() {

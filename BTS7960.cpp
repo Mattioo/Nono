@@ -2,8 +2,8 @@
 
 // BTS7960 Manual: https://botland.com.pl/index.php?controller=attachment&id_attachment=843
 
-unsigned int BTS7960::HistorySize = 0;
-unsigned int BTS7960::HistoryCounter = 0;
+unsigned int BTS7960::history_size = 0;
+unsigned int BTS7960::history_counter = 0;
 
 BTS7960::BTS7960() : history(nullptr), history_index(0) {
 
@@ -33,7 +33,7 @@ void BTS7960::SetInputRange(int min, int mid, int max, int offset) {
 }
 
 void BTS7960::SetHistorySize(unsigned int size) {
-  HistorySize = size;
+  BTS7960::history_size = size;
 }
 
 void BTS7960::SetMode(int mode) {
@@ -41,8 +41,8 @@ void BTS7960::SetMode(int mode) {
 }
 
 void BTS7960::Init() {
-  if (HistorySize > 0) {
-    history = new BTS7960State[HistorySize];
+  if (BTS7960::history_size > 0) {
+    history = new BTS7960State[BTS7960::history_size];
   }
   pinMode(left_motor_en_pin, OUTPUT);
   pinMode(right_motor_en_pin, OUTPUT);
@@ -57,11 +57,15 @@ void BTS7960::Movement(int y, int x) {
   }
 }
 
+bool BTS7960::CanReverse() {
+  return BTS7960::history_counter < BTS7960::history_size;
+}
+
 void BTS7960::Reverse() {
-  if (HistorySize > 0)
+  if (BTS7960::history_size > 0)
   {
-    history_index = (HistorySize + --history_index) % HistorySize;
-    HistoryCounter++;
+    history_index = (BTS7960::history_size + --history_index) % BTS7960::history_size;
+    BTS7960::history_counter++;
 
     switch(history[history_index].DIRECT_LM) {
       case LOW:
@@ -149,11 +153,11 @@ void BTS7960::setPins()
 }
 
 void BTS7960::saveState() {
-  if (HistorySize > 0 && (state.LM != LOW || state.RM != LOW))
+  if (BTS7960::history_size > 0 && (state.LM != LOW || state.RM != LOW))
   {
     history[history_index] = state;
-    history_index = ++history_index % HistorySize;
-    HistoryCounter = 0;
+    history_index = ++history_index % BTS7960::history_size;
+    BTS7960::history_counter = 0;
   }
 }
 

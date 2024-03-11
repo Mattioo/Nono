@@ -1,6 +1,8 @@
 #ifndef RXNANO45_H
 #define RXNANO45_H
 
+#define CRSF_CHANNEL_VALUE_OFF 50
+
 #include <Arduino.h>
 #include "CrsfSerial.h"
 
@@ -37,15 +39,18 @@ public:
   RXNANO45(HardwareSerial& serial);
   void SetLogger(HardwareSerial* serial = nullptr);
   void Init();
+  static bool ArmState();
   int GetChannel(unsigned int channel);
   CrsfSerialState GetState();
   void Loop();
+  static bool IsInit;
   static bool IsAlive;
-  static bool* ARM;
 
 private:
   CrsfSerial receiver;
   HardwareSerial* logger;
+
+  static bool* ARM;
 
   void log(String val, bool line = true);
 };

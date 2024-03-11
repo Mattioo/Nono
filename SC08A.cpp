@@ -59,12 +59,24 @@ void SC08A::Set(const std::vector<unsigned char>& channelsToSet, int position, u
     }
 }
 
+void SC08A::SetInverted(const std::vector<unsigned char>& channelsToSet, int position, unsigned char velocity) {
+  SC08A::Set(channelsToSet, CRSF_CHANNEL_VALUE_MIN + CRSF_CHANNEL_VALUE_MAX - position, velocity);
+}
+
 void SC08A::Home() {
     log("[SC08A] Home ", false);
     if (signalRange.Minimum != 0 || signalRange.Maximum != 0)
       Set(channels, (signalRange.Minimum + (signalRange.Maximum - signalRange.Minimum) / 2));
     else
       Set(channels, positions.Home);
+}
+
+bool SC08A::IsPossibleMovementY(int Camera_Y) {
+  return Camera_Y >= CRSF_CHANNEL_VALUE_MID && Camera_Y <= (CRSF_CHANNEL_VALUE_MID + (CRSF_CHANNEL_VALUE_MAX - CRSF_CHANNEL_VALUE_MID)/2);
+}
+
+bool SC08A::IsPossibleMovementX(int Camera_X) {
+  return Camera_X >= (CRSF_CHANNEL_VALUE_MIN + (CRSF_CHANNEL_VALUE_MID - CRSF_CHANNEL_VALUE_MIN)/2) && Camera_X <= (CRSF_CHANNEL_VALUE_MID + (CRSF_CHANNEL_VALUE_MAX - CRSF_CHANNEL_VALUE_MID)/2);
 }
 
 void SC08A::activate_choosen_servo_channels() {

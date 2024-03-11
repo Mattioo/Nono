@@ -2,6 +2,7 @@
 #define A02YYUW_H
 
 #include <Arduino.h>
+#include "CrsfSerial.h"
 
 class A02YYUW {
 public:
@@ -11,6 +12,7 @@ public:
   void ReceiveData();
   float GetDistance();
   bool DistanceReceived();
+  bool IsBackwardMovement(int Move_Y);
 private:
   HardwareSerial* uart;
   HardwareSerial* logger;

@@ -21,6 +21,10 @@ bool A02YYUW::DistanceReceived() {
   return distanceReceived;
 }
 
+bool A02YYUW::IsBackwardMovement(int Move_Y) {
+  return Move_Y <= CRSF_CHANNEL_VALUE_MID;
+}
+
 void A02YYUW::ReceiveData() {
   static int dataIndex = 0;
 

@@ -22,7 +22,10 @@
 
 #define MAX_NAME_LENGTH 16u
 
-// MSP_OSD_CONFIG replay
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// MSP_OSD_CONFIG
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 struct msp_osd_config_t {
     uint8_t  osdflags;
     uint8_t  video_system;
@@ -125,12 +128,18 @@ struct msp_osd_config_t {
     uint8_t  overlay_radio_mode;
 } __attribute__ ((packed));
 
-// MSP_NAME replay
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// MSP_NAME
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 struct msp_name_t {
     char craft_name[MAX_NAME_LENGTH + 1];
 } __attribute__ ((packed));
 
-// MSP_FILTER_CONFIG replay
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// MSP_FILTER_CONFIG
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 struct msp_filter_config_t {
     uint8_t  gyro_lowpass_hz_u8;        // Gyro_lowpass_hz
     uint16_t dterm_lowpass_hz;          // Delta Filter in hz
@@ -151,40 +160,45 @@ struct msp_filter_config_t {
     uint16_t dterm_lowpass2_hz;         // Extra PT1 Filter on D in hz
 } __attribute__ ((packed));
 
-// MSP_PID_ADVANCED replay
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// MSP_PID_ADVANCED
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 struct msp_pid_advanced_t {
-    uint16_t _1;                     // 0
-    uint16_t _2;                     // 0
-    uint16_t _3;                     // 0
-    uint8_t  _4;                     // 0
-    uint8_t  vbatPidCompensation;    // Scale PIDsum to battery voltage
-    uint8_t  feedForwardTransition;  // Feed forward weight transition
-    uint8_t  _5;                     // 0
-    uint8_t  _6;                     // 0
-    uint8_t  _7;                     // 0
-    uint8_t  _8;                     // 0
-    uint16_t rateAccelLimit;         // accel limiter roll/pitch deg/sec/ms
-    uint16_t yawRateAccelLimit;      // yaw accel limiter for deg/sec/ms
-    uint8_t  levelAngleLimit;        // Max angle in degrees in level mode
-    uint8_t  _9;                     // 0
-    uint16_t itermThrottleThreshold; // max allowed throttle delta before iterm accelerated in ms
-    uint16_t itermAcceleratorGain;   // Iterm Accelerator Gain when itermThrottlethreshold is hit
-    uint16_t _10;                    // 0
-    uint8_t  iterm_rotation;         // rotates iterm to translate world errors to local coordinate system
-    uint8_t  _11;                    // 0
-    uint8_t  _12;                    // 0
-    uint8_t  _13;                    // 0
-    uint8_t  _14;                    // 0
-    uint8_t  _15;                    // 0
-    uint8_t  _16;                    // 0
-    uint16_t pidRoll;
-    uint16_t pidPitch;
-    uint16_t pidYaw;
-    uint8_t  antiGravityMode;        // type of anti gravity method
+    uint16_t unused01;                    // 0
+    uint16_t unused02;                    // 0
+    uint16_t unused03;                    // 0
+    uint8_t  unused04;                    // 0
+    uint8_t  vbat_pid_compensation;       // Scale PIDsum to battery voltage
+    uint8_t  feed_forward_transition;     // Feed forward weight transition
+    uint8_t  unused05;                    // 0
+    uint8_t  unused06;                    // 0
+    uint8_t  unused07;                    // 0
+    uint8_t  unused08;                    // 0
+    uint16_t rate_accel_limit;            // Accel limiter roll/pitch deg/sec/ms
+    uint16_t yaw_rate_accel_limit;        // Yaw accel limiter for deg/sec/ms
+    uint8_t  level_angle_limit;           // Max angle in degrees in level mode
+    uint8_t  unused09;                    // 0
+    uint16_t iterm_throttle_threshold;    // Max allowed throttle delta before iterm accelerated in ms
+    uint16_t iterm_accelerator_gain;      // Iterm Accelerator Gain when itermThrottlethreshold is hit
+    uint16_t unused10;                    // 0
+    uint8_t  iterm_rotation;              // Rotates iterm to translate world errors to local coordinate system
+    uint8_t  unused11;                    // 0
+    uint8_t  unused12;                    // 0
+    uint8_t  unused13;                    // 0
+    uint8_t  unused14;                    // 0
+    uint8_t  unused15;                    // 0
+    uint8_t  unused16;                    // 0
+    uint16_t pid_roll;
+    uint16_t pid_pitch;
+    uint16_t pid_yaw;
+    uint8_t  anti_gravity_mode;           // Type of anti gravity method
 } __attribute__ ((packed));
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// MSP_BATTERY_STATE
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// MSP_BATTERY_STATE replay
 enum batteryState_e {
     BATTERY_OK = 0,
     BATTERY_WARNING,
@@ -194,12 +208,12 @@ enum batteryState_e {
 };
 
 struct msp_battery_state_t {
-    uint8_t  batteryCellCount; // 0 - 255
-    uint16_t batteryCapacity;
-    uint8_t  batteryVoltage;   // 0 - 255
-    uint16_t mAhDrawn;         // 0 - 0xFFFF
-    uint16_t amperage;         // -0x8000 - 0x7FFF
-    uint8_t  batteryState;     // batteryState_e
+    uint8_t  battery_cell_count;  // 0 - 255
+    uint16_t battery_capacity;
+    uint8_t  battery_voltage;     // 0 - 255
+    uint16_t mAh_drawn;           // 0 - 0xFFFF
+    uint16_t amperage;            // -0x8000 - 0x7FFF
+    uint8_t  battery_state;       // batteryState_e
 } __attribute__ ((packed));
 
 #endif // MSP_OSD_H

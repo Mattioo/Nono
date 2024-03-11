@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include <algorithm>
 #include <vector>
+#include "CrsfSerial.h"
 
 struct Positions {
     Positions() : Minimum(0), Maximum(8000), Home(4000) {}
@@ -29,7 +30,10 @@ public:
     void SetInputRange(int min, int max);
     void Init();
     void Set(const std::vector<unsigned char>& channels, int position, unsigned char velocity = 100);
+    void SetInverted(const std::vector<unsigned char>& channels, int position, unsigned char velocity = 100);
     void Home();
+    bool IsPossibleMovementY(int Camera_Y);
+    bool IsPossibleMovementX(int Camera_X);
 private:
     HardwareSerial* uart;
     HardwareSerial* logger;

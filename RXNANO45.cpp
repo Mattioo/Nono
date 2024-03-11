@@ -1,6 +1,8 @@
 #include "RXNANO45.h"
 
+bool RXNANO45::IsInit = true;
 bool RXNANO45::IsAlive = false;
+
 bool* RXNANO45::ARM = nullptr;
 
 RXNANO45::RXNANO45(HardwareSerial& serial) : receiver(serial, CRSF_BAUDRATE) {
@@ -13,6 +15,7 @@ void RXNANO45::SetLogger(HardwareSerial* serial) {
 
 void RXNANO45::Init() {
   receiver.onPacketChannels = []() {
+    IsInit = false;
     IsAlive = true;
   };
   receiver.onLinkDown = []() {
@@ -52,6 +55,10 @@ CrsfSerialState RXNANO45::GetState() {
 
   log("[RXNANO45] MOVE_Y: " + String(state.Move_Y) + " MOVE_X: " + String(state.Move_X) + " CAMERA_Y: " + String(state.Camera_Y) + " CAMERA_X: " + String(state.Camera_X) + " A: " + String(state.A) + " B: " + String(state.B) + " C: " + String(state.C) + " D: " + String(state.D) + " E: " + String(state.E) + " F: " + String(state.F));
   return state;
+}
+
+bool RXNANO45::ArmState() {
+  return RXNANO45::ARM && *RXNANO45::ARM;
 }
 
 void RXNANO45::Loop() {
