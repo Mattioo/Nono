@@ -81,7 +81,7 @@ void setup_OSD(HardwareSerial* logger) {
 }
 
 void set_buzzer(bool isAlive) {
-  digitalWrite(BUZZER_PIN, (!isInit && !isAlive) ? LOW : HIGH);
+  digitalWrite(BUZZER_PIN, !isAlive ? LOW : HIGH);
 }
 
 void set_light(int signal) {
@@ -134,7 +134,9 @@ void loop() {
     }
     set_light(CRSF_CHANNEL_VALUE_MIN);
   }
-  set_buzzer(RXNANO45::IsAlive);
+
+  if (!isInit)
+    set_buzzer(RXNANO45::IsAlive);
   
   osd.Set_Analog(110);
   osd.Set_Battery_State(110, 13000);
