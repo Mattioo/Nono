@@ -2,67 +2,69 @@
 #define OSD_h
 
 #include <ReefwingMSP.h>
+#include "Protocol.h"
 #include "MSP_OSD.h"
 #include "OSD_POS.h"
 
 class OSD {
 public:
-  OSD(HardwareSerial& serial);
+  OSD(HardwareSerial& serial, unsigned long interval = 1000);
   void SetLogger(HardwareSerial* serial = nullptr);
   void Init();
+  void Loop();
 
-  void SendVariant();
-  void SendVersion();
-
-  void SetName(String craftName);
-  void SendName();
-
-  void SetStatusDJI(uint32_t flightModeFlags);
-  void SendStatusDJI();
-
-  void SetAnalog(uint8_t voltage, uint16_t rssi = 0, int16_t amperage = 0, uint16_t mAhDrawn = 0);
-  void SendAnalog();
-
-  void SetBatteryState(uint8_t voltage, uint16_t batteryCapacity, uint8_t batteryState = 0, int16_t amperage = 0, uint16_t mAhDrawn = 0);
-  void SendBatteryState();
-
-  void SetRawGPS(int32_t gps_lat = 0, int32_t gps_lon = 0, uint8_t numSat = 0, int32_t gps_alt = 0, int16_t groundspeed = 0);
-  void SendRawGPS();
-
-  void SetCompGPS(uint32_t distanceToHome = 0, int16_t directionToHome = 0, int16_t heading = 0);
-  void SendCompGPS();
-
-  void SetAttitude(int16_t roll_angle = 0, int16_t pitch_angle = 0);
-  void SendAttitude();
-
-  void SetAltitude(int32_t relative_alt = 0, int16_t climb_rate = 0);
-  void SendAltitude();
-
-  void SendConfig();
-
+  void Set_Name(String craftName);
+  void Set_Status(uint32_t flightModeFlags);
+  void Set_Status_Ex(uint32_t flightModeFlags);
+  void Set_Analog(uint8_t voltage, uint16_t rssi = 0, int16_t amperage = 0, uint16_t mAhDrawn = 0);
+  void Set_Battery_State(uint8_t voltage, uint16_t batteryCapacity, uint8_t batteryState = 0, int16_t amperage = 0, uint16_t mAhDrawn = 0);
+  
 private:
   HardwareSerial* uart;
   HardwareSerial* logger;
+
   ReefwingMSP msp;
 
+  msp_api_version_t api_version;
+  msp_fc_version_t fc_version;
   msp_fc_variant_t fc_variant;
-  msp_fc_version_t fc_version = { 0 };
   msp_name_t name;
-  msp_status_DJI_t status_DJI = { 0 };
-  msp_analog_t analog = { 0 };
-  msp_battery_state_t battery_state = { 0 }; 
-  msp_raw_gps_t raw_gps = { 0 };
-  msp_comp_gps_t comp_gps = { 0 };
-  msp_attitude_t attitude = { 0 };
-  msp_altitude_t altitude = { 0 };
-  msp_osd_config_t msp_osd_config = { 0 };
+  msp_osd_config_t osd_config;
+  msp_filter_config_t filter_config;
+  msp_pid_advanced_t pid_advanced;
+  msp_status_t status;
+  msp_rc_t rc;
+  msp_analog_t analog;
+  msp_rc_tuning_t rc_tuning;
+  msp_pid_t pid;
+  msp_battery_state_t battery_state;
+  msp_status_ex_t status_ex;
 
-  void setVariant();
-  void setVersion();
-  void setConfig();
-  void setPositions();
+  void set_api_version();
+  void set_fc_version();
+  void set_fc_variant(); 
+  void set_osd_config();
+  void set_osd_config_positions();
 
-  uint8_t getCellCount(uint8_t voltage);
+  void send_API_Version();
+  void send_FC_Version();
+  void send_FC_Variant();
+  void send_Name();
+  void send_Status();
+  void send_Status_Ex();
+  void send_Analog();
+  void send_Battery_State();
+  void send_Filter_Config();
+  void send_PID_Advanced();
+  void send_RC();
+  void send_RC_Tuning();
+  void send_PID();
+  void send_Config();
+
+  uint8_t get_cell_count(uint8_t voltage);
+
+  unsigned long _previousMillis;
+  unsigned long _interval;
 };
 
 #endif // OSD_H

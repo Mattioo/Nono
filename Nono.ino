@@ -10,13 +10,15 @@
 #define CRSF_CHANNEL_VALUE_OFF 50
 #define BTS7960_MIN_DISTANCE 30
 
+uint32_t flightModeFlags = 0x00000002; // DISARM
+
 bool isInit = true;
 std::vector<unsigned char> servo_channels = {1, 2};
 
 RXNANO45 rxnano45(Serial1);
 SC08A sc08a(Serial2);
 A02YYUW a02yyuw(Serial);
-OSD osd(Serial3);
+OSD osd(Serial3, 500);
 BTS7960 bts7960;
 
 void setup_Output() {
@@ -72,38 +74,27 @@ void setup_BTS7960(HardwareSerial* logger) {
 
 void setup_OSD(HardwareSerial* logger) {
   osd.SetLogger(logger);
-  osd.SetAnalog(110, 6500);
-  osd.SetStatusDJI(0x00000002);
-  osd.SetName("Nono");
-  osd.Init(); 
+  osd.Set_Status(flightModeFlags);
+  osd.Set_Status_Ex(flightModeFlags);
+  osd.Set_Name("Nono");
+  osd.Init();
 }
 
-void setBuzzer(bool isAlive) {
+void set_buzzer(bool isAlive) {
   digitalWrite(BUZZER_PIN, (!isInit && !isAlive) ? LOW : HIGH);
 }
 
-void setLight(int signal) {
+void set_light(int signal) {
   digitalWrite(LIGHT_PIN, signal == CRSF_CHANNEL_VALUE_MAX ? HIGH : LOW);
 }
 
-bool checkDistance(int signal) {
+bool check_distance(int signal) {
   return signal == CRSF_CHANNEL_VALUE_MAX;
 }
 
 // EVENT
 void serialEvent3() {
   a02yyuw.ReceiveData();
-}
-
-void sendTelemetry(uint8_t voltage) {
-  osd.SendVariant();
-  osd.SendVersion();
-  osd.SendName();
-  osd.SetStatusDJI(0x00000003);
-  osd.SendStatusDJI();
-  osd.SetAnalog(voltage);
-  osd.SendAnalog();
-  osd.SendConfig();
 }
 
 void loop() {
@@ -113,10 +104,15 @@ void loop() {
     
     if (RXNANO45::ARM && *RXNANO45::ARM)
     {
-      setLight(controller.A);
+      flightModeFlags = 0x00000003; // ARM
+
+      osd.Set_Status(flightModeFlags);
+      osd.Set_Status_Ex(flightModeFlags);
+
+      set_light(controller.A);
       bts7960.SetMode(controller.B);
 
-      if (!checkDistance(controller.D) || a02yyuw.DistanceReceived() && (controller.Move_Y <= CRSF_CHANNEL_VALUE_MID || a02yyuw.GetDistance() >= BTS7960_MIN_DISTANCE)) {
+      if (!check_distance(controller.D) || a02yyuw.DistanceReceived() && (controller.Move_Y <= CRSF_CHANNEL_VALUE_MID || a02yyuw.GetDistance() >= BTS7960_MIN_DISTANCE)) {
         bts7960.Movement(controller.Move_Y, controller.Move_X);
       }
 
@@ -136,9 +132,13 @@ void loop() {
     else {
       bts7960.Stop();
     }
-    setLight(CRSF_CHANNEL_VALUE_MIN);
+    set_light(CRSF_CHANNEL_VALUE_MIN);
   }
-  setBuzzer(RXNANO45::IsAlive);
+  set_buzzer(RXNANO45::IsAlive);
+  
+  osd.Set_Analog(110);
+  osd.Set_Battery_State(110, 13000);
+
   rxnano45.Loop();
-  sendTelemetry(110);
+  osd.Loop();
 }

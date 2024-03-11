@@ -10,7 +10,7 @@
 const uint16_t osd_altitude_pos = 234;
 const uint16_t osd_numerical_vario_pos = 234;
 const uint16_t osd_avg_cell_voltage_pos = 234;
-const uint16_t osd_main_batt_voltage_pos = 2113;
+const uint16_t osd_main_batt_voltage_pos = 234;
 const uint16_t osd_crosshairs_pos = 234;
 const uint16_t osd_craft_name_pos = 2048;
 
@@ -43,7 +43,7 @@ const uint16_t osd_horizon_sidebars_pos = 234;
 const uint16_t osd_item_timer_1_pos = 234;
 const uint16_t osd_item_timer_2_pos = 234;
 const uint16_t osd_main_batt_usage_pos = 234;
-const uint16_t osd_disarmed_pos = 234;
+const uint16_t osd_disarmed_pos = 2284;
 const uint16_t osd_numerical_heading_pos = 234;
 const uint16_t osd_compass_bar_pos = 234;
 const uint16_t osd_esc_tmp_pos = 234;
