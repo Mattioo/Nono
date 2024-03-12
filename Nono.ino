@@ -12,7 +12,7 @@ std::vector<unsigned char> servo_channels = {1, 2};
 A02YYUW a02yyuw(Serial);
 RXNANO45 rxnano45(Serial1);
 SC08A sc08a(Serial2);
-OSD osd(Serial3, 110, 13000, 6);
+OSD osd(Serial3, 110, 13000, 3);
 BTS7960 bts7960;
 
 HardwareSerial* setup_logger(HardwareSerial* serial = nullptr) {

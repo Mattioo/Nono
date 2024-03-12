@@ -5,7 +5,6 @@ OSD::OSD(HardwareSerial& serial, uint8_t voltage, uint16_t batteryCapacity, uint
     OSD::set_fc_version();
     OSD::set_analog(voltage);
     OSD::set_battery_state(voltage, batteryCapacity, cellCount);
-    
     OSD::set_osd_config();
     OSD::set_osd_config_positions();
     OSD::set_arm(false);
