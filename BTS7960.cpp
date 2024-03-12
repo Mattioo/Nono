@@ -95,6 +95,10 @@ void BTS7960::Stop() {
   Movement(mid_signal_value, mid_signal_value);
 }
 
+bool BTS7960::is_hard_driving_mode() {
+  return movement_mode != min_signal_value;
+}
+
 BTS7960State BTS7960::scaleSignals(int y, int x) {
 
   int signalY = (abs(y - mid_signal_value) >= off_signal_value) ? y : mid_signal_value;
@@ -115,7 +119,7 @@ BTS7960State BTS7960::scaleSignals(int y, int x) {
     : HIGH;
 
   // SOFT DRIVING MODE
-  if (movement_mode == min_signal_value) {
+  if (is_hard_driving_mode()) {
     if (directX == 1) {
       result.LM = forceY;
       result.RM = forceY - forceX;

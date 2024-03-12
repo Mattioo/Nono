@@ -1,5 +1,4 @@
-#ifndef OSD_POS_H
-#define OSD_POS_H
+#pragma once
 
 #include <stdint.h>
 
@@ -67,5 +66,3 @@ const uint16_t osd_pid_profile_name_pos = 234;
 const uint16_t osd_profile_name_pos = 234;
 const uint16_t osd_rssi_dbm_value_pos = 234;
 const uint16_t osd_rc_channels_pos = 234;
-
-#endif // OSD_POS_H

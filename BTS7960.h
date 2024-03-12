@@ -1,5 +1,4 @@
-#ifndef BTS7960_H
-#define BTS7960_H
+#pragma once
 
 #define MAX_SIGNAL_MOVE 255
 #define BTS7960_MIN_DISTANCE 30
@@ -31,6 +30,8 @@ public:
   void Reverse();
   void Stop();
 
+  BTS7960State state;
+
 private:
   HardwareSerial* logger;
 
@@ -52,12 +53,9 @@ private:
   int max_signal_value;
   int off_signal_value;
 
-  BTS7960State state;
-
   BTS7960State scaleSignals(int y, int x);
   void setPins();
   void saveState();
+  bool is_hard_driving_mode();
   void log(String val, bool line = true);
 };
-
-#endif // BTS7960_H

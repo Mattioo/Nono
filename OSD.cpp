@@ -1,14 +1,14 @@
 #include "OSD.h"
+#include "Protocol.h"
 
-OSD::OSD(HardwareSerial& serial, uint8_t voltage, uint16_t batteryCapacity, unsigned long interval) : uart(&serial), _interval(interval) {
-    OSD::set_api_version();
+OSD::OSD(HardwareSerial& serial, uint8_t voltage, uint16_t batteryCapacity, uint8_t cellCount) : uart(&serial) {
     OSD::set_fc_version();
-    OSD::set_fc_variant();
     OSD::set_analog(voltage);
-    OSD::set_battery_state(voltage, batteryCapacity);
+    OSD::set_battery_state(voltage, batteryCapacity, cellCount);
+    
     OSD::set_osd_config();
     OSD::set_osd_config_positions();
-    OSD::Set_Arm(false);
+    OSD::set_arm(false);
 }
 
 void OSD::SetLogger(HardwareSerial* serial) {
@@ -21,64 +21,58 @@ void OSD::Init() {
 }
 
 void OSD::Loop() {
-  unsigned long currentMillis = millis();
-  if (currentMillis - _previousMillis >= _interval) {
-    send_API_Version();
-    send_FC_Variant();
-    send_FC_Version();
-    send_Name();
-    send_Filter_Config();
-    send_PID_Advanced();
-    send_Status();
-    send_RC();
-    send_Analog();
-    send_RC_Tuning();
-    send_PID();
-    send_Battery_State();
-    send_Status_Ex();
-    send_Config();
-
-    _previousMillis = currentMillis;
+  if (msp.recv(&packet.recvMessageID, packet.payload, packet.maxSize, &packet.recvSize)) {
+    switch(packet.recvMessageID) {
+      case MSP_FC_VARIANT:
+        msp.response(MSP_FC_VARIANT, &fc_version, sizeof(fc_version));
+        OSD::send_config();
+        break;
+      case MSP_FC_VERSION:
+        msp.response(MSP_FC_VERSION, &fc_version, sizeof(fc_version));
+        OSD::send_config();
+        break;
+      case MSP_NAME:
+        msp.response(MSP_NAME, &name, sizeof(name));
+        OSD::send_config();
+        break;
+      case MSP_STATUS:
+        msp.response(MSP_STATUS, &status, sizeof(status));
+        OSD::send_config();
+        break;
+      case MSP_ANALOG:
+        msp.response(MSP_ANALOG, &analog, sizeof(analog));
+        OSD::send_config();
+        break;
+      case MSP_CELLS:
+        msp.response(MSP_CELLS, &battery_state, sizeof(battery_state));
+        OSD::send_config();
+        break;
+      case MSP_CMD_STATUS_EX:
+        msp.response(MSP_CMD_STATUS_EX, &status_ex, sizeof(status_ex));
+        OSD::send_config();
+        break;
+      default:
+        msp.error(packet.recvMessageID, NULL, 0);
+        log(String(packet.recvMessageID));
+        break;
+    }
   }
 }
 
-void OSD::Set_Name(String craftName) {
-  memset(name.craft_name, 0, sizeof(name.craft_name));
-  size_t len = craftName.length() < MAX_NAME_LENGTH ? craftName.length() : MAX_NAME_LENGTH;
-  memcpy(name.craft_name, craftName.c_str(), len);
-}
-
-void OSD::Set_Arm(bool state) {
-  uint32_t flightModeFlags = state
-    ? 0x00000003
-    : 0x00000002;
-  OSD::set_status(flightModeFlags);
-  OSD::set_status_ex(flightModeFlags);
-}
-
-void OSD::Set_Battery_Voltage(uint8_t voltage, uint8_t batteryState) {
-  analog.vbat = voltage;
-  battery_state.battery_voltage = (uint16_t)(voltage * 10);
-  battery_state.battery_cell_count = get_cell_count(voltage);
-  battery_state.battery_state = batteryState;
-}
-
-void OSD::set_api_version() {
-  api_version.protocolVersion = 1;
-  api_version.APIMajor = 3;
-  api_version.APIMinor = 0;
+void OSD::set_fc_variant() {
+  memset(fc_variant.flightControlIdentifier, '\0', sizeof(fc_variant.flightControlIdentifier));
+  strncpy(fc_variant.flightControlIdentifier, REEFWING_IDENTIFIER, sizeof(fc_variant.flightControlIdentifier) - 1);
 }
 
 void OSD::set_fc_version() {
-  fc_version.versionMajor = 3;
-  fc_version.versionMinor = 5;
+  fc_version.versionMajor = 4;
+  fc_version.versionMinor = 3;
   fc_version.versionPatchLevel = 0;
 }
 
-void OSD::set_fc_variant() {
-  memset(fc_variant.flightControlIdentifier, 0, sizeof(fc_variant.flightControlIdentifier));
-  String variant = "BFTL";
-  memcpy(fc_variant.flightControlIdentifier, variant.c_str(), variant.length());
+void OSD::set_name(String craftName) {
+  memset(name.craft_name, '\0', sizeof(name.craft_name));
+  strncpy(name.craft_name, craftName.c_str(), sizeof(name.craft_name) - 1);
 }
 
 void OSD::set_status(uint32_t flightModeFlags) {
@@ -100,6 +94,12 @@ void OSD::set_status_ex(uint32_t flightModeFlags) {
   status_ex.accCalibrationAxisFlags = 0;
 }
 
+void OSD::set_arm(bool state) {
+  uint32_t flightModeFlags = state ? 0x00000003 : 0x00000002;
+  OSD::set_status(flightModeFlags);
+  OSD::set_status_ex(flightModeFlags);
+}
+
 void OSD::set_analog(uint8_t voltage, uint16_t rssi, int16_t amperage, uint16_t mAhDrawn) {
   analog.vbat = voltage;
   analog.rssi = rssi;
@@ -107,12 +107,18 @@ void OSD::set_analog(uint8_t voltage, uint16_t rssi, int16_t amperage, uint16_t 
   analog.mAhDrawn = mAhDrawn;
 }
 
-void OSD::set_battery_state(uint8_t voltage, uint16_t batteryCapacity, uint8_t batteryState, int16_t amperage, uint16_t mAhDrawn) {
+void OSD::set_battery_state(uint8_t voltage, uint16_t batteryCapacity, uint8_t cellCount, uint8_t batteryState, int16_t amperage, uint16_t mAhDrawn) {
   battery_state.amperage = amperage;
   battery_state.battery_voltage = (uint16_t)(voltage * 10);
   battery_state.mAh_drawn = mAhDrawn;
-  battery_state.battery_cell_count = get_cell_count(voltage);
+  battery_state.battery_cell_count = cellCount;
   battery_state.battery_capacity = batteryCapacity;
+  battery_state.battery_state = batteryState;
+}
+
+void OSD::set_battery_voltage(uint8_t voltage, uint8_t batteryState) {
+  analog.vbat = voltage;
+  battery_state.battery_voltage = (uint16_t)(voltage * 10);
   battery_state.battery_state = batteryState;
 }
 
@@ -187,75 +193,10 @@ void OSD::set_osd_config_positions() {
   osd_config.osd_rc_channels_pos = osd_rc_channels_pos;
 }
 
-void OSD::send_API_Version() {
-  msp.send(MSP_CMD_API_VERSION, &api_version, sizeof(api_version));
-}
-
-void OSD::send_FC_Version() {
-  msp.send(MSP_FC_VERSION, &fc_version, sizeof(fc_version));
-}
-
-void OSD::send_FC_Variant() {
-  msp.send(MSP_FC_VARIANT, &fc_variant, sizeof(fc_variant));
-}
-
-void OSD::send_Name() {
-  msp.send(MSP_NAME, &name, sizeof(name));
-}
-
-void OSD::send_Status() {
-  msp.send(MSP_STATUS, &status, sizeof(status));
-}
-
-void OSD::send_RC() {
-  msp.send(MSP_CMD_RC, &rc, sizeof(rc));
-}
-
-void OSD::send_Status_Ex() {
-  msp.send(MSP_CMD_STATUS_EX, &status_ex, sizeof(status_ex));
-}
-
-void OSD::send_Analog() {
-  msp.send(MSP_ANALOG, &analog, sizeof(analog));
-}
-
-void OSD::send_RC_Tuning() {
-  msp.send(MSP_CMD_RC_TUNING, &rc_tuning, sizeof(rc_tuning));
-}
-
-void OSD::send_PID() {
-  msp.send(MSP_CMD_PID, &pid, sizeof(pid));
-}
-
-void OSD::send_Battery_State() {
-  msp.send(MSP_CMD_BATTERY_STATE, &battery_state, sizeof(battery_state));
-}
-
-void OSD::send_Config() {
+void OSD::send_config() {
   msp.send(MSP_CMD_OSD_CONFIG, &osd_config, sizeof(osd_config));
 }
 
-void OSD::send_Filter_Config() {
-  msp.send(MSP_CMD_FILTER_CONFIG, &filter_config, sizeof(filter_config));
-}
-
-void OSD::send_PID_Advanced() {
-  msp.send(MSP_CMD_PID_ADVANCED, &pid_advanced, sizeof(pid_advanced));
-}
-
-uint8_t OSD::get_cell_count(uint8_t voltage) {
-  if (voltage == 0)
-    return 0;
-  else if (voltage < 43)
-    return 1;
-  else if (voltage < 85)
-    return 2;
-  else if (voltage < 127)
-    return 3;
-  else if (voltage < 169)
-    return 4;
-  else if (voltage < 211)
-    return 5;
-  else if (voltage < 255)
-    return 6;
+void OSD::log(String val, bool line) {
+  if (logger != nullptr) { if (line) logger->println(val); else logger->print(val); }
 }

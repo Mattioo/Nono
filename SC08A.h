@@ -1,5 +1,4 @@
-#ifndef SC08A_h
-#define SC08A_h
+#pragma once
 
 #include <Arduino.h>
 #include <algorithm>
@@ -45,5 +44,3 @@ private:
     String convertVectorToString(const std::vector<unsigned char>& vec);
     void log(String val, bool line = true);
 };
-
-#endif

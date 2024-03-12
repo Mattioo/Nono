@@ -12,8 +12,15 @@ std::vector<unsigned char> servo_channels = {1, 2};
 A02YYUW a02yyuw(Serial);
 RXNANO45 rxnano45(Serial1);
 SC08A sc08a(Serial2);
-OSD osd(Serial3, 110, 13000, 500);
+OSD osd(Serial3, 110, 13000, 6);
 BTS7960 bts7960;
+
+HardwareSerial* setup_logger(HardwareSerial* serial = nullptr) {
+  if (serial != nullptr) {
+    serial->begin(115200);
+  }
+  return serial;
+}
 
 void setup() {
   HardwareSerial* logger = nullptr; // setup_logger(&Serial);
@@ -23,13 +30,6 @@ void setup() {
   setup_a02yyuw(logger);
   setup_bts7960(logger);
   setup_osd(logger);
-}
-
-HardwareSerial* setup_logger(HardwareSerial* serial = nullptr) {
-  if (serial != nullptr) {
-    serial->begin(115200);
-  }
-  return serial;
 }
 
 void setup_outputs() {
@@ -67,7 +67,7 @@ void setup_bts7960(HardwareSerial* logger) {
 
 void setup_osd(HardwareSerial* logger) {
   osd.SetLogger(logger);
-  osd.Set_Name("Nono");
+  osd.set_name("Nono");
   osd.Init();
 }
 
@@ -118,9 +118,9 @@ void loop() {
   if (!RXNANO45::IsInit)
     set_buzzer(RXNANO45::IsAlive);
   
-  osd.Set_Arm(RXNANO45::ArmState());
-  osd.Set_Battery_Voltage(110, BATTERY_OK);
-
+  osd.set_arm(RXNANO45::ArmState());
+  osd.set_battery_voltage(110, BATTERY_OK);
+  
   rxnano45.Loop();
   osd.Loop();
 }

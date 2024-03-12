@@ -1,29 +1,11 @@
-#ifndef MSP_OSD_H
-#define MSP_OSD_H
-
+#pragma once
+#define MSP_CMD_OSD_CONFIG 84
+#define MSP_CMD_STATUS_EX 150
+#define MAX_NAME_LENGTH 16u
 #include <stdint.h>
 
-#define MSP_CMD_API_VERSION       1
-#define MSP_CMD_FC_VARIANT        2
-#define MSP_CMD_FC_VERSION        3
-#define MSP_CMD_NAME              10
-#define MSP_CMD_OSD_CONFIG        84
-#define MSP_CMD_FILTER_CONFIG     92
-#define MSP_CMD_PID_ADVANCED      94
-#define MSP_CMD_STATUS            101
-#define MSP_CMD_RC                105
-#define MSP_CMD_ANALOG            110
-#define MSP_CMD_RC_TUNING         111
-#define MSP_CMD_PID               112
-#define MSP_CMD_BATTERY_STATE     130
-#define MSP_CMD_STATUS_EX         150
-#define MSP_CMD_DISPLAYPORT       182
-#define MSP_CMD_SET_OSD_CANVAS    188
-
-#define MAX_NAME_LENGTH 16u
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/// MSP_OSD_CONFIG
+/// MSP_CMD_OSD_CONFIG
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 struct msp_osd_config_t {
@@ -129,7 +111,7 @@ struct msp_osd_config_t {
 } __attribute__ ((packed));
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/// MSP_NAME
+/// MSP_CMD_NAME
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 struct msp_name_t {
@@ -137,66 +119,7 @@ struct msp_name_t {
 } __attribute__ ((packed));
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/// MSP_FILTER_CONFIG
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-struct msp_filter_config_t {
-    uint8_t  gyro_lowpass_hz_u8;        // Gyro_lowpass_hz
-    uint16_t dterm_lowpass_hz;          // Delta Filter in hz
-    uint16_t yaw_lowpass_hz;            // Additional yaw filter when yaw axis too noisy
-    uint16_t gyro_soft_notch_hz_1;
-    uint16_t gyro_soft_notch_cutoff_1;
-    uint16_t dterm_notch_hz;            // Biquad dterm notch hz
-    uint16_t dterm_notch_cutoff;        // Biquad dterm notch low cutoff
-    uint16_t gyro_soft_notch_hz_2;
-    uint16_t gyro_soft_notch_cutoff_2;
-    uint8_t  dterm_filter_type;         // Filter selection for dterm
-    uint8_t  gyro_hardware_lpf;         // Gyro DLPF setting
-    uint8_t  gyro_32khz_hardware_lpf;   // Gyro 32khz DLPF setting
-    uint16_t gyro_lowpass_hz_u16;       // Gyro_lowpass_hz
-    uint16_t gyro_lowpass2_hz;
-    uint8_t  gyro_lowpass_type;
-    uint8_t  gyro_lowpass2_type;
-    uint16_t dterm_lowpass2_hz;         // Extra PT1 Filter on D in hz
-} __attribute__ ((packed));
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/// MSP_PID_ADVANCED
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-struct msp_pid_advanced_t {
-    uint16_t unused01;                    // 0
-    uint16_t unused02;                    // 0
-    uint16_t unused03;                    // 0
-    uint8_t  unused04;                    // 0
-    uint8_t  vbat_pid_compensation;       // Scale PIDsum to battery voltage
-    uint8_t  feed_forward_transition;     // Feed forward weight transition
-    uint8_t  unused05;                    // 0
-    uint8_t  unused06;                    // 0
-    uint8_t  unused07;                    // 0
-    uint8_t  unused08;                    // 0
-    uint16_t rate_accel_limit;            // Accel limiter roll/pitch deg/sec/ms
-    uint16_t yaw_rate_accel_limit;        // Yaw accel limiter for deg/sec/ms
-    uint8_t  level_angle_limit;           // Max angle in degrees in level mode
-    uint8_t  unused09;                    // 0
-    uint16_t iterm_throttle_threshold;    // Max allowed throttle delta before iterm accelerated in ms
-    uint16_t iterm_accelerator_gain;      // Iterm Accelerator Gain when itermThrottlethreshold is hit
-    uint16_t unused10;                    // 0
-    uint8_t  iterm_rotation;              // Rotates iterm to translate world errors to local coordinate system
-    uint8_t  unused11;                    // 0
-    uint8_t  unused12;                    // 0
-    uint8_t  unused13;                    // 0
-    uint8_t  unused14;                    // 0
-    uint8_t  unused15;                    // 0
-    uint8_t  unused16;                    // 0
-    uint16_t pid_roll;
-    uint16_t pid_pitch;
-    uint16_t pid_yaw;
-    uint8_t  anti_gravity_mode;           // Type of anti gravity method
-} __attribute__ ((packed));
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/// MSP_BATTERY_STATE
+/// MSP_CMD_BATTERY_STATE
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 enum batteryState_e {
@@ -215,5 +138,3 @@ struct msp_battery_state_t {
     uint16_t amperage;            // -0x8000 - 0x7FFF
     uint8_t  battery_state;       // batteryState_e
 } __attribute__ ((packed));
-
-#endif // MSP_OSD_H

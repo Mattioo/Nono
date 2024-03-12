@@ -1,5 +1,4 @@
-#ifndef RXNANO45_H
-#define RXNANO45_H
+#pragma once
 
 #define CRSF_CHANNEL_VALUE_OFF 50
 
@@ -54,5 +53,3 @@ private:
 
   void log(String val, bool line = true);
 };
-
-#endif // A02YYUW_H

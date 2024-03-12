@@ -1,5 +1,4 @@
-#ifndef A02YYUW_H
-#define A02YYUW_H
+#pragma once
 
 #include <Arduino.h>
 #include "CrsfSerial.h"
@@ -24,5 +23,3 @@ private:
   void processData();
   void log(String val, bool line = true);
 };
-
-#endif // A02YYUW_H
