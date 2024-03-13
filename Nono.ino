@@ -23,12 +23,12 @@ HardwareSerial* setup_logger(HardwareSerial* serial = nullptr) {
 }
 
 void setup() {
-  HardwareSerial* logger = setup_logger(&Serial);
+  HardwareSerial* logger = nullptr; // setup_logger(&Serial);
   setup_outputs();  
-  setup_rxnano45(nullptr);
-  setup_sc08a(nullptr);
-  setup_a02yyuw(nullptr);
-  setup_bts7960(nullptr);
+  setup_rxnano45(logger);
+  setup_sc08a(logger);
+  setup_a02yyuw(logger);
+  setup_bts7960(logger);
   setup_osd(logger);
 }
 
@@ -53,7 +53,7 @@ void setup_sc08a(HardwareSerial* logger) {
 
 void setup_a02yyuw(HardwareSerial* logger) {
   a02yyuw.SetLogger(logger);
-  //a02yyuw.Init();
+  a02yyuw.Init();
 }
 
 void setup_bts7960(HardwareSerial* logger) {
