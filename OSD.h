@@ -10,9 +10,9 @@
 
 class OSD {
 public:
-  OSD(HardwareSerial& serial, String name, unsigned long delay, uint16_t batteryCapacity, uint8_t cellCount);
+  OSD(HardwareSerial& serial, uint16_t delay);
   void set_logger(HardwareSerial* serial = nullptr);
-  void init();
+  void init(String name, uint16_t batteryCapacity, uint8_t cellCount);
   void loop();
 
   void set_battery_voltage(uint8_t voltage, uint8_t batteryState = BATTERY_OK);
@@ -42,9 +42,9 @@ private:
   msp_battery_state_t battery_state;
   msp_status_ex_t status_ex;
 
-  bool config_osd_sent;
-  bool ident_req_sent;
-  bool initialized;
+  unsigned long msp_ident_sent_time;
+  bool msp_ident_sent;
+  bool msp_cmd_osd_config_sent;
   
   void set_api_version();
   void set_ident();
@@ -61,8 +61,6 @@ private:
   void set_pid();
   void set_battery_state(uint8_t voltage, uint16_t batteryCapacity, uint8_t cellCount, uint8_t batteryState = BATTERY_OK, int16_t amperage = 0, uint16_t mAhDrawn = 0);
   void set_status_ex(uint32_t flightModeFlags);
-
-  unsigned long config_osd_sent_time;
 
   uint8_t get_cell_count(uint8_t voltage);
   void log(String val, bool line = true);

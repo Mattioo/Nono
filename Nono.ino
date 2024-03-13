@@ -12,7 +12,7 @@ std::vector<unsigned char> servo_channels = {1, 2};
 A02YYUW a02yyuw(Serial);
 RXNANO45 rxnano45(Serial1);
 SC08A sc08a(Serial2);
-OSD osd(Serial3, "Nono", 15000, 13000, 3);
+OSD osd(Serial3, 15000);
 BTS7960 bts7960;
 
 HardwareSerial* setup_logger(HardwareSerial* serial = nullptr) {
@@ -23,12 +23,12 @@ HardwareSerial* setup_logger(HardwareSerial* serial = nullptr) {
 }
 
 void setup() {
-  HardwareSerial* logger = nullptr; //setup_logger(&Serial);
+  HardwareSerial* logger = setup_logger(&Serial);
   setup_outputs();  
-  setup_rxnano45(logger);
-  setup_sc08a(logger);
-  setup_a02yyuw(logger);
-  setup_bts7960(logger);
+  setup_rxnano45(nullptr);
+  setup_sc08a(nullptr);
+  setup_a02yyuw(nullptr);
+  setup_bts7960(nullptr);
   setup_osd(logger);
 }
 
@@ -53,7 +53,7 @@ void setup_sc08a(HardwareSerial* logger) {
 
 void setup_a02yyuw(HardwareSerial* logger) {
   a02yyuw.SetLogger(logger);
-  a02yyuw.Init();
+  //a02yyuw.Init();
 }
 
 void setup_bts7960(HardwareSerial* logger) {
@@ -67,7 +67,7 @@ void setup_bts7960(HardwareSerial* logger) {
 
 void setup_osd(HardwareSerial* logger) {
   osd.set_logger(logger);
-  osd.init();
+  osd.init("Nono", 13000, 3);
 }
 
 void set_buzzer(bool isAlive) {

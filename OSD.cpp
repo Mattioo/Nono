@@ -2,98 +2,102 @@
 #include "OSD.h"
 #include "Protocol.h"
 
-OSD::OSD(HardwareSerial& serial, String name, unsigned long delay, uint16_t batteryCapacity, uint8_t cellCount) : uart(&serial), config_osd_sent_time(millis() + delay), ident_req_sent(false), config_osd_sent(false), initialized(false) {
-  OSD::set_api_version();
-  OSD::set_ident();
-  OSD::set_fc_variant();
-  OSD::set_fc_version();
-  OSD::set_name(name);
-  OSD::set_filter_config();
-  OSD::set_pid_advanced();
-  OSD::set_arm(false);
-  OSD::set_rc(nullptr, 0);
-  OSD::set_analog(0);
-  OSD::set_rc_tuning();
-  OSD::set_pid();
-  OSD::set_battery_state(0, batteryCapacity, cellCount);
+OSD::OSD(HardwareSerial& serial, uint16_t delay) : uart(&serial), msp_ident_sent_time(millis() + delay), msp_ident_sent(false), msp_cmd_osd_config_sent(false) {
 }
 
 void OSD::set_logger(HardwareSerial* serial) {
     logger = serial;
 }
 
-void OSD::init() {
+void OSD::init(String name, uint16_t batteryCapacity, uint8_t cellCount) {
     uart->begin(115200); while (!(*uart));
     msp.begin(*uart);
+
+    OSD::set_api_version();
+    OSD::set_ident();
+    OSD::set_fc_variant();
+    OSD::set_fc_version();
+    OSD::set_name(name);
+    OSD::set_filter_config();
+    OSD::set_pid_advanced();
+    OSD::set_arm(false);
+    OSD::set_rc(nullptr, 0);
+    OSD::set_analog(0);
+    OSD::set_rc_tuning();
+    OSD::set_pid();
+    OSD::set_battery_state(0, batteryCapacity, cellCount);
+    OSD::set_osd_config();
+
+    log("[OSD] START");
 }
 
 void OSD::loop() {
-  if (msp.recv(&packet.recvMessageID, packet.payload, packet.maxSize, &packet.recvSize)) {
-    switch(packet.recvMessageID) {
-      case MSP_API_VERSION:
-        msp.response(MSP_API_VERSION, &api_version, sizeof(api_version));
-        break;
-      case MSP_IDENT:
-        msp.response(MSP_IDENT, &ident, sizeof(ident));
-        break;
-      case MSP_FC_VARIANT:
-        msp.response(MSP_FC_VARIANT, &fc_version, sizeof(fc_version));
-        break;
-      case MSP_FC_VERSION:
-        msp.response(MSP_FC_VERSION, &fc_version, sizeof(fc_version));
-        break;
-      case MSP_NAME:
-        msp.response(MSP_NAME, &name, sizeof(name));
-        initialized = true;
-        break;
-      case MSP_CMD_OSD_CONFIG:
-        msp.response(MSP_CMD_OSD_CONFIG, &osd_config, sizeof(osd_config));
-        break;
-      case MSP_CMD_FILTER_CONFIG:
-        msp.response(MSP_CMD_FILTER_CONFIG, &filter_config, sizeof(filter_config));
-        break;
-      case MSP_CMD_PID_ADVANCED:
-        msp.response(MSP_CMD_PID_ADVANCED, &pid_advanced, sizeof(pid_advanced));
-        break;
-      case MSP_STATUS:
-        msp.response(MSP_STATUS, &status, sizeof(status));
-        break;
-      case MSP_RC:
-        msp.response(MSP_RC, &rc, sizeof(rc));
-        break;
-      case MSP_ANALOG:
-        msp.response(MSP_ANALOG, &analog, sizeof(analog));
-        break;
-      case MSP_RC_TUNING:
-        msp.response(MSP_RC_TUNING, &rc_tuning, sizeof(rc_tuning));
-        break;
-      case MSP_PID:
-        msp.response(MSP_PID, &pid, sizeof(pid));
-        break;
-      case MSP_CELLS:
-        msp.response(MSP_CELLS, &battery_state, sizeof(battery_state));
-        break;
-      case MSP_CMD_STATUS_EX:
-        msp.response(MSP_CMD_STATUS_EX, &status_ex, sizeof(status_ex));
-        break;
-      default:
-        msp.error(packet.recvMessageID, NULL, 0);
-        break;
-    }
-    log(String(packet.recvMessageID));
-  }
-  
-  if (!config_osd_sent && millis() >= config_osd_sent_time)
+  if (millis() >= OSD::msp_ident_sent_time)
   {
-    if (!ident_req_sent)
-    {
-      msp.request(MSP_IDENT, NULL, 0);
-      ident_req_sent = true;
+    if (!OSD::msp_ident_sent) {
+      msp.send(MSP_IDENT, &ident, sizeof(ident));   
+      OSD::msp_ident_sent = true;
+
+      log("[OSD] MSP_IDENT REQUEST");
     }
-    else if (OSD::initialized)
+    if (OSD::msp_ident_sent && msp.recv(&packet.recvMessageID, packet.payload, packet.maxSize, &packet.recvSize))
     {
-      OSD::set_osd_config();
-      config_osd_sent = true;
+      switch(packet.recvMessageID) {
+        case MSP_API_VERSION:
+          msp.response(MSP_API_VERSION, &api_version, sizeof(api_version));
+          break;
+        case MSP_IDENT:
+          msp.response(MSP_IDENT, &ident, sizeof(ident));
+          break;
+        case MSP_FC_VARIANT:
+          msp.response(MSP_FC_VARIANT, &fc_version, sizeof(fc_version));
+          break;
+        case MSP_FC_VERSION:
+          msp.response(MSP_FC_VERSION, &fc_version, sizeof(fc_version));
+          break;
+        case MSP_NAME:
+          msp.response(MSP_NAME, &name, sizeof(name));
+          if (!OSD::msp_cmd_osd_config_sent)
+          {
+            msp.send(MSP_CMD_OSD_CONFIG, &osd_config, sizeof(osd_config));
+            OSD::msp_cmd_osd_config_sent = true;
+          }
+          break;
+        case MSP_CMD_OSD_CONFIG:
+          msp.response(MSP_CMD_OSD_CONFIG, &osd_config, sizeof(osd_config));
+          break;
+        case MSP_CMD_FILTER_CONFIG:
+          msp.response(MSP_CMD_FILTER_CONFIG, &filter_config, sizeof(filter_config));
+          break;
+        case MSP_CMD_PID_ADVANCED:
+          msp.response(MSP_CMD_PID_ADVANCED, &pid_advanced, sizeof(pid_advanced));
+          break;
+        case MSP_STATUS:
+          msp.response(MSP_STATUS, &status, sizeof(status));
+          break;
+        case MSP_RC:
+          msp.response(MSP_RC, &rc, sizeof(rc));
+          break;
+        case MSP_ANALOG:
+          msp.response(MSP_ANALOG, &analog, sizeof(analog));
+          break;
+        case MSP_RC_TUNING:
+          msp.response(MSP_RC_TUNING, &rc_tuning, sizeof(rc_tuning));
+          break;
+        case MSP_PID:
+          msp.response(MSP_PID, &pid, sizeof(pid));
+          break;
+        case MSP_CELLS:
+          msp.response(MSP_CELLS, &battery_state, sizeof(battery_state));
+          break;
+        case MSP_CMD_STATUS_EX:
+          msp.response(MSP_CMD_STATUS_EX, &status_ex, sizeof(status_ex));
+          break;
+        default:
+          msp.error(packet.recvMessageID, NULL, 0);
+          break;
+      }
+      log("[OSD] MSP RESPONSE " + String(packet.recvMessageID));
     }
   }
 }
@@ -359,8 +363,6 @@ void OSD::set_osd_config() {
   osd_config.osd_profile_name_pos = osd_profile_name_pos;
   osd_config.osd_rssi_dbm_value_pos = osd_rssi_dbm_value_pos;
   osd_config.osd_rc_channels_pos = osd_rc_channels_pos;
-
-  msp.send(MSP_CMD_OSD_CONFIG, &osd_config, sizeof(osd_config));
 }
 
 void OSD::log(String val, bool line) {
