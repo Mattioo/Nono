@@ -16,6 +16,7 @@ public:
   void loop();
 
   void set_battery_voltage(uint8_t voltage, uint8_t batteryState = BATTERY_OK);
+  void set_rtc(uint16_t year, uint8_t month, uint8_t day, uint8_t hours, uint8_t minutes, uint8_t seconds, uint16_t millis);
   void set_rc(uint16_t array[], int length);
   void set_arm(bool state);
 
@@ -66,7 +67,6 @@ private:
   void set_pid();
   void set_battery_state(uint8_t voltage, uint16_t batteryCapacity, uint8_t cellCount, uint8_t batteryState = BATTERY_OK, int16_t amperage = 0, uint16_t mAhDrawn = 0);
   void set_status_ex(uint32_t flightModeFlags);
-  void set_rtc(uint16_t year, uint8_t month, uint8_t day, uint8_t hours, uint8_t minutes, uint8_t seconds, uint16_t millis);
 
   void log(String val, bool line = true);
 };
