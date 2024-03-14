@@ -27,6 +27,7 @@ void OSD::init(String name, uint16_t batteryCapacity, uint8_t cellCount) {
     OSD::set_pid();
     OSD::set_battery_state(0, batteryCapacity, cellCount);
     OSD::set_osd_config();
+    OSD::set_rtc(2024, 1, 1, 0, 0, 0, 1);
 
     log("[OSD] START");
 }
@@ -78,6 +79,18 @@ void OSD::loop() {
         case MSP_RC:
           msp.response(MSP_RC, &rc, sizeof(rc));
           break;
+        case MSP_RAW_GPS:
+          msp.response(MSP_RAW_GPS, &raw_gps, sizeof(raw_gps));
+          break;
+        case MSP_COMP_GPS:
+          msp.response(MSP_COMP_GPS, &comp_gps, sizeof(comp_gps));
+          break;
+        case MSP_ATTITUDE:
+          msp.response(MSP_ATTITUDE, &attitude, sizeof(attitude));
+          break;
+        case MSP_ALTITUDE:
+          msp.response(MSP_ALTITUDE, &altitude, sizeof(altitude));
+          break;
         case MSP_ANALOG:
           msp.response(MSP_ANALOG, &analog, sizeof(analog));
           break;
@@ -90,8 +103,14 @@ void OSD::loop() {
         case MSP_CELLS:
           msp.response(MSP_CELLS, &battery_state, sizeof(battery_state));
           break;
+        case MSP_DEBUG:
+          msp.response(MSP_DEBUG, &debug, sizeof(debug));
+          break;
         case MSP_CMD_STATUS_EX:
           msp.response(MSP_CMD_STATUS_EX, &status_ex, sizeof(status_ex));
+          break;
+        case MSP_CMD_RTC:
+          msp.response(MSP_CMD_RTC, &rtc, sizeof(rtc));
           break;
         default:
           msp.error(packet.recvMessageID, NULL, 0);
@@ -306,40 +325,37 @@ void OSD::set_osd_config() {
   osd_config.osdprofileindex = 1;
   osd_config.overlay_radio_mode = 0;
 
-  osd_config.osd_rssi_value_pos = osd_rssi_value_pos;
+  osd_config.osd_altitude_pos = osd_altitude_pos;
+  osd_config.osd_numerical_vario_pos = osd_numerical_vario_pos;
+  osd_config.osd_avg_cell_voltage_pos = osd_avg_cell_voltage_pos;
   osd_config.osd_main_batt_voltage_pos = osd_main_batt_voltage_pos;
   osd_config.osd_crosshairs_pos = osd_crosshairs_pos;
-  osd_config.osd_artificial_horizon_pos = osd_artificial_horizon_pos;
-  osd_config.osd_horizon_sidebars_pos = osd_horizon_sidebars_pos;
-  osd_config.osd_item_timer_1_pos = osd_item_timer_1_pos;
-  osd_config.osd_item_timer_2_pos = osd_item_timer_2_pos;
-  osd_config.osd_flymode_pos = osd_flymode_pos;
   osd_config.osd_craft_name_pos = osd_craft_name_pos;
-  osd_config.osd_throttle_pos_pos = osd_throttle_pos_pos;
-  osd_config.osd_vtx_channel_pos = osd_vtx_channel_pos;
+  osd_config.osd_gps_sats_pos = osd_gps_sats_pos;
+  osd_config.osd_home_dir_pos = osd_home_dir_pos;
+  osd_config.osd_home_dist_pos = osd_home_dist_pos;
+  osd_config.osd_gps_speed_pos = osd_gps_speed_pos;
+  osd_config.osd_gps_lat_pos = osd_gps_lat_pos;
+  osd_config.osd_gps_lon_pos = osd_gps_lon_pos;
+  osd_config.osd_pitch_angle_pos = osd_pitch_angle_pos;
+  osd_config.osd_roll_angle_pos = osd_roll_angle_pos;
+  osd_config.osd_rssi_value_pos = osd_rssi_value_pos;
+  osd_config.osd_display_name_pos = osd_display_name_pos;
+  osd_config.osd_flymode_pos = osd_flymode_pos;
   osd_config.osd_current_draw_pos = osd_current_draw_pos;
   osd_config.osd_mah_drawn_pos = osd_mah_drawn_pos;
-  osd_config.osd_gps_speed_pos = osd_gps_speed_pos;
-  osd_config.osd_gps_sats_pos = osd_gps_sats_pos;
-  osd_config.osd_altitude_pos = osd_altitude_pos;
+  osd_config.osd_throttle_pos_pos = osd_throttle_pos_pos;
+  osd_config.osd_vtx_channel_pos = osd_vtx_channel_pos;
   osd_config.osd_roll_pids_pos = osd_roll_pids_pos;
   osd_config.osd_pitch_pids_pos = osd_pitch_pids_pos;
   osd_config.osd_yaw_pids_pos = osd_yaw_pids_pos;
   osd_config.osd_power_pos = osd_power_pos;
   osd_config.osd_pidrate_profile_pos = osd_pidrate_profile_pos;
   osd_config.osd_warnings_pos = osd_warnings_pos;
-  osd_config.osd_avg_cell_voltage_pos = osd_avg_cell_voltage_pos;
-  osd_config.osd_gps_lon_pos = osd_gps_lon_pos;
-  osd_config.osd_gps_lat_pos = osd_gps_lat_pos;
   osd_config.osd_debug_pos = osd_debug_pos;
-  osd_config.osd_pitch_angle_pos = osd_pitch_angle_pos;
-  osd_config.osd_roll_angle_pos = osd_roll_angle_pos;
   osd_config.osd_main_batt_usage_pos = osd_main_batt_usage_pos;
   osd_config.osd_disarmed_pos = osd_disarmed_pos;
-  osd_config.osd_home_dir_pos = osd_home_dir_pos;
-  osd_config.osd_home_dist_pos = osd_home_dist_pos;
   osd_config.osd_numerical_heading_pos = osd_numerical_heading_pos;
-  osd_config.osd_numerical_vario_pos = osd_numerical_vario_pos;
   osd_config.osd_compass_bar_pos = osd_compass_bar_pos;
   osd_config.osd_esc_tmp_pos = osd_esc_tmp_pos;
   osd_config.osd_esc_rpm_pos = osd_esc_rpm_pos;
@@ -356,13 +372,22 @@ void OSD::set_osd_config() {
   osd_config.osd_flight_dist_pos = osd_flight_dist_pos;
   osd_config.osd_stick_overlay_left_pos = osd_stick_overlay_left_pos;
   osd_config.osd_stick_overlay_right_pos = osd_stick_overlay_right_pos;
-  osd_config.osd_display_name_pos = osd_display_name_pos;
   osd_config.osd_esc_rpm_freq_pos = osd_esc_rpm_freq_pos;
   osd_config.osd_rate_profile_name_pos = osd_rate_profile_name_pos;
   osd_config.osd_pid_profile_name_pos = osd_pid_profile_name_pos;
   osd_config.osd_profile_name_pos = osd_profile_name_pos;
   osd_config.osd_rssi_dbm_value_pos = osd_rssi_dbm_value_pos;
   osd_config.osd_rc_channels_pos = osd_rc_channels_pos;
+}
+
+void OSD::set_rtc(uint16_t year, uint8_t month, uint8_t day, uint8_t hours, uint8_t minutes, uint8_t seconds, uint16_t millis) {
+  rtc.year = year;
+  rtc.month = month;
+  rtc.day = day;
+  rtc.hours = hours;
+  rtc.minutes = minutes;
+  rtc.seconds = seconds;
+  rtc.millis = millis;
 }
 
 void OSD::log(String val, bool line) {

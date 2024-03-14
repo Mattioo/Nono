@@ -4,6 +4,7 @@
 #define MSP_CMD_FILTER_CONFIG 92
 #define MSP_CMD_PID_ADVANCED 94
 #define MSP_CMD_STATUS_EX 150
+#define MSP_CMD_RTC 247
 
 #include <stdint.h>
 
@@ -11,7 +12,7 @@
 /// MSP_CMD_OSD_CONFIG
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-struct msp_osd_config_t {
+struct msp_cmd_osd_config_t {
     uint8_t  osdflags;
     uint8_t  video_system;
     uint8_t  units;
@@ -119,7 +120,7 @@ struct msp_osd_config_t {
 
 #define MAX_NAME_LENGTH 16u
 
-struct msp_name_t {
+struct msp_cmd_name_t {
     char craft_name[MAX_NAME_LENGTH + 1];
 } __attribute__ ((packed));
 
@@ -144,7 +145,7 @@ enum gyroHardwareLpf_e {
     GYRO_HARDWARE_LPF_COUNT
 };
 
-struct msp_filter_config_t {
+struct msp_cmd_filter_config_t {
     uint8_t  gyro_lpf1_static_hz_u8;
     uint16_t dterm_lpf1_static_hz;
     uint16_t yaw_lowpass_hz;
@@ -192,7 +193,7 @@ enum auto_profile_cell_count_e {
     AUTO_PROFILE_CELL_COUNT_CHANGE = -1
 };
 
-struct msp_pid_advanced_t {
+struct msp_cmd_pid_advanced_t {
   uint16_t unused01;
   uint16_t unused02;
   uint16_t unused03;
@@ -310,11 +311,25 @@ enum batteryState_e {
     BATTERY_INIT
 };
 
-struct msp_battery_state_t {
+struct msp_cmd_battery_state_t {
     uint8_t  battery_cell_count;
     uint16_t battery_capacity;
     uint8_t  battery_voltage;
     uint16_t mAh_drawn;
     uint16_t amperage;
     uint8_t  battery_state;
+} __attribute__ ((packed));
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// MSP_CMD_RTC
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+struct msp_cmd_rtc_t {
+  uint16_t year;
+  uint8_t  month;
+  uint8_t  day;
+  uint8_t  hours;
+  uint8_t  minutes;
+  uint8_t  seconds;
+  uint16_t millis;
 } __attribute__ ((packed));

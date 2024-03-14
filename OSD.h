@@ -30,17 +30,23 @@ private:
   msp_ident_t ident;
   msp_fc_variant_t fc_variant;
   msp_fc_version_t fc_version;
-  msp_name_t name;
-  msp_osd_config_t osd_config;
-  msp_filter_config_t filter_config;
-  msp_pid_advanced_t pid_advanced;
+  msp_cmd_name_t name;
+  msp_cmd_osd_config_t osd_config;
+  msp_cmd_filter_config_t filter_config;
+  msp_cmd_pid_advanced_t pid_advanced;
   msp_status_t status;
   msp_rc_t rc;
+  msp_raw_gps_t raw_gps;
+  msp_comp_gps_t comp_gps;
+  msp_attitude_t attitude;
+  msp_altitude_t altitude;
   msp_analog_t analog;
   msp_cmd_rc_tuning_t rc_tuning;
   msp_cmd_pid_t pid;
-  msp_battery_state_t battery_state;
+  msp_cmd_battery_state_t battery_state;
+  msp_debug_t debug;
   msp_status_ex_t status_ex;
+  msp_cmd_rtc_t rtc;
 
   unsigned long msp_ident_sent_time;
   bool msp_ident_sent;
@@ -52,7 +58,6 @@ private:
   void set_fc_version();
   void set_name(String craftName);
   void set_osd_config();
-  void set_osd_config_positions();
   void set_filter_config();
   void set_pid_advanced();
   void set_status(uint32_t flightModeFlags);
@@ -61,7 +66,7 @@ private:
   void set_pid();
   void set_battery_state(uint8_t voltage, uint16_t batteryCapacity, uint8_t cellCount, uint8_t batteryState = BATTERY_OK, int16_t amperage = 0, uint16_t mAhDrawn = 0);
   void set_status_ex(uint32_t flightModeFlags);
+  void set_rtc(uint16_t year, uint8_t month, uint8_t day, uint8_t hours, uint8_t minutes, uint8_t seconds, uint16_t millis);
 
-  uint8_t get_cell_count(uint8_t voltage);
   void log(String val, bool line = true);
 };
