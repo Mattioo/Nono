@@ -39,7 +39,7 @@ void OSD::loop() {
       msp.send(MSP_IDENT, &ident, sizeof(ident));   
       OSD::msp_ident_sent = true;
 
-      log("[OSD] MSP_IDENT REQUEST");
+      log("[OSD] MSP_IDENT SEND");
     }
     if (OSD::msp_ident_sent && msp.recv(&packet.recvMessageID, packet.payload, packet.maxSize, &packet.recvSize))
     {
@@ -62,6 +62,8 @@ void OSD::loop() {
           {
             msp.send(MSP_CMD_OSD_CONFIG, &osd_config, sizeof(osd_config));
             OSD::msp_cmd_osd_config_sent = true;
+
+            log("[OSD] MSP_CMD_OSD_CONFIG SEND");
           }
           break;
         case MSP_CMD_OSD_CONFIG:
