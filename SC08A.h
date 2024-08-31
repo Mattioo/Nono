@@ -24,23 +24,27 @@ class SC08A {
 public:
     SC08A(HardwareSerial& serial);
     ~SC08A();
-    void SetChannels(const std::vector<unsigned char>& newChannels);
-    void SetLogger(HardwareSerial* serial = nullptr);
-    void SetInputRange(int min, int max);
-    void Init();
-    void Set(const std::vector<unsigned char>& channels, int position, unsigned char velocity = 100);
-    void SetInverted(const std::vector<unsigned char>& channels, int position, unsigned char velocity = 100);
-    void Home();
-    bool IsPossibleMovementY(int Camera_Y);
-    bool IsPossibleMovementX(int Camera_X);
+    void set_logger(HardwareSerial* serial = nullptr);
+    void set_channels(const std::vector<unsigned char>& newChannels);    
+    void set_input_range(int min, int max);
+    void init();
+
+    void set(const std::vector<unsigned char>& channels, int position, unsigned char velocity = 100);
+    void set_inverted(const std::vector<unsigned char>& channels, int position, unsigned char velocity = 100);
+    void home();
+    bool is_possible_movement_Y(int Camera_Y);
+    bool is_possible_movement_X(int Camera_X);
+
 private:
     HardwareSerial* uart;
-    HardwareSerial* logger;
     std::vector<unsigned char> channels;
     Positions positions;
     SignalRange signalRange;
+
     void activate_choosen_servo_channels();
     bool contains(const std::vector<unsigned char>& vec, unsigned char value);
-    String convertVectorToString(const std::vector<unsigned char>& vec);
+    String convert_vector_to_string(const std::vector<unsigned char>& vec);
+
+    HardwareSerial* logger;
     void log(String val, bool line = true);
 };

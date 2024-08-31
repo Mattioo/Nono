@@ -18,23 +18,20 @@ class BTS7960 {
 public:
   BTS7960();
   ~BTS7960();
-  void SetLogger(HardwareSerial* serial = nullptr);
-  void SetPins(unsigned int left_en, unsigned int left_pwm, unsigned int right_en, unsigned int right_pwm);
-  void SetInputRange(int min, int mid, int max, int offset);
-  void SetHistorySize(unsigned int size);
-  void SetMode(int mode);
 
-  void Init();
-  void Movement(int y, int x);
-  bool CanReverse();
-  void Reverse();
-  void Stop();
+  void set_logger(HardwareSerial* serial = nullptr);
+  void set_pins(unsigned int left_en, unsigned int left_pwm, unsigned int right_en, unsigned int right_pwm);
+  void set_input_range(int min, int mid, int max, int offset);
+  void set_history_size(unsigned int size); 
+  void init();
 
-  BTS7960State state;
+  void set_mode(int mode);
+  void movement(int y, int x);
+  bool can_reverse();
+  void reverse();
+  void stop();
 
 private:
-  HardwareSerial* logger;
-
   unsigned int left_motor_en_pin;
   unsigned int left_motor_pwm_pin;
   unsigned int right_motor_en_pin;
@@ -53,9 +50,13 @@ private:
   int max_signal_value;
   int off_signal_value;
 
-  BTS7960State scaleSignals(int y, int x);
-  void setPins();
-  void saveState();
+  BTS7960State state;
+
+  BTS7960State scale_signals(int y, int x);
+  void set_pins();
+  void save_state();
   bool is_hard_driving_mode();
+
+  HardwareSerial* logger;
   void log(String val, bool line = true);
 };

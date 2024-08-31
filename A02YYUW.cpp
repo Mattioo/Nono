@@ -1,31 +1,31 @@
 #include "A02YYUW.h"
 
-A02YYUW::A02YYUW(HardwareSerial& serial) : uart(&serial), distance(0), dataIndex(0), distanceReceived(false) {
-
+A02YYUW::A02YYUW(HardwareSerial& serial) : distance(0), dataIndex(0), distanceReceived(false) {
+  this->uart = &serial;
 }
 
-void A02YYUW::SetLogger(HardwareSerial* serial) {
+void A02YYUW::set_logger(HardwareSerial* serial) {
     logger = serial;
 }
 
-void A02YYUW::Init() {
-  uart->begin(9600);
+void A02YYUW::init() {
+  uart->begin(9600); while (!(*uart));
 }
 
-float A02YYUW::GetDistance() {
+uint16_t A02YYUW::get_distance() {
   distanceReceived = false;
-  return distance;
+  return (uint16_t)distance;
 }
 
-bool A02YYUW::DistanceReceived() {
+bool A02YYUW::distance_received() {
   return distanceReceived;
 }
 
-bool A02YYUW::IsBackwardMovement(int Move_Y) {
+bool A02YYUW::is_backward_movement(int Move_Y) {
   return Move_Y <= CRSF_CHANNEL_VALUE_MID;
 }
 
-void A02YYUW::ReceiveData() {
+void A02YYUW::receive_data() {
   static int dataIndex = 0;
 
   while (uart->available()) {
@@ -39,14 +39,14 @@ void A02YYUW::ReceiveData() {
 
     if (dataIndex == 4) {
       dataIndex = 0;
-      processData();
+      process_data();
     }
   }
 
   log("[A02YYUW] Distance: " + String(distance) + " Not Read: " + distanceReceived);
 }
 
-void A02YYUW::processData() {
+void A02YYUW::process_data() {
   if (data[0] == 0xFF) {
     int sum = (data[0] + data[1] + data[2]) & 0x00FF;
     if (sum == data[3]) {

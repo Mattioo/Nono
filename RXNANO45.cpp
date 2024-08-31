@@ -9,11 +9,11 @@ RXNANO45::RXNANO45(HardwareSerial& serial) : receiver(serial, CRSF_BAUDRATE) {
 
 }
 
-void RXNANO45::SetLogger(HardwareSerial* serial) {
+void RXNANO45::set_logger(HardwareSerial* serial) {
     logger = serial;
 }
 
-void RXNANO45::Init() {
+void RXNANO45::init() {
   receiver.onPacketChannels = []() {
     IsInit = false;
     IsAlive = true;
@@ -27,13 +27,21 @@ void RXNANO45::Init() {
   receiver.init();
 }
 
-int RXNANO45::GetChannel(unsigned int channel) {
+void RXNANO45::loop() {
+  receiver.loop();
+}
+
+int RXNANO45::get_channel(unsigned int channel) {
   int value = receiver.getChannel(channel);
   log("[RXNANO45] Channel: " + String(channel) + " Value: " + String(value));
   return value;
 }
 
-CrsfSerialState RXNANO45::GetState() {
+bool RXNANO45::arm_state() {
+  return RXNANO45::ARM && *RXNANO45::ARM;
+}
+
+CrsfSerialState RXNANO45::get_state() {
   CrsfSerialState state(
     receiver.getChannel(1),
     receiver.getChannel(4),
@@ -55,14 +63,6 @@ CrsfSerialState RXNANO45::GetState() {
 
   log("[RXNANO45] MOVE_Y: " + String(state.Move_Y) + " MOVE_X: " + String(state.Move_X) + " CAMERA_Y: " + String(state.Camera_Y) + " CAMERA_X: " + String(state.Camera_X) + " A: " + String(state.A) + " B: " + String(state.B) + " C: " + String(state.C) + " D: " + String(state.D) + " E: " + String(state.E) + " F: " + String(state.F));
   return state;
-}
-
-bool RXNANO45::ArmState() {
-  return RXNANO45::ARM && *RXNANO45::ARM;
-}
-
-void RXNANO45::Loop() {
-  receiver.loop();
 }
 
 void RXNANO45::log(String val, bool line) {

@@ -14,33 +14,29 @@ BTS7960::~BTS7960() {
   history = nullptr;
 }
 
-void BTS7960::SetLogger(HardwareSerial* serial) {
+void BTS7960::set_logger(HardwareSerial* serial) {
     logger = serial;
 }
 
-void BTS7960::SetPins(unsigned int left_en, unsigned int left_pwm, unsigned int right_en, unsigned int right_pwm) {
+void BTS7960::set_pins(unsigned int left_en, unsigned int left_pwm, unsigned int right_en, unsigned int right_pwm) {
     left_motor_en_pin = left_en;
     right_motor_en_pin = right_en;
     left_motor_pwm_pin = left_pwm;
     right_motor_pwm_pin = right_pwm;
 }
 
-void BTS7960::SetInputRange(int min, int mid, int max, int offset) {
+void BTS7960::set_input_range(int min, int mid, int max, int offset) {
     min_signal_value = min;
     mid_signal_value = mid;
     max_signal_value = max;
     off_signal_value = offset;
 }
 
-void BTS7960::SetHistorySize(unsigned int size) {
+void BTS7960::set_history_size(unsigned int size) {
   BTS7960::history_size = size;
 }
 
-void BTS7960::SetMode(int mode) {
-  movement_mode = mode;
-}
-
-void BTS7960::Init() {
+void BTS7960::init() {
   if (BTS7960::history_size > 0) {
     history = new BTS7960State[BTS7960::history_size];
   }
@@ -48,20 +44,24 @@ void BTS7960::Init() {
   pinMode(right_motor_en_pin, OUTPUT);
 }
 
-void BTS7960::Movement(int y, int x) {
+void BTS7960::set_mode(int mode) {
+  movement_mode = mode;
+}
+
+void BTS7960::movement(int y, int x) {
   if (y >= min_signal_value && x >= min_signal_value && y <= max_signal_value && x <= max_signal_value)
   {
-    state = scaleSignals(y, x);
-    setPins();
-    saveState();
+    state = scale_signals(y, x);
+    set_pins();
+    save_state();
   }
 }
 
-bool BTS7960::CanReverse() {
+bool BTS7960::can_reverse() {
   return BTS7960::history_counter < BTS7960::history_size;
 }
 
-void BTS7960::Reverse() {
+void BTS7960::reverse() {
   if (BTS7960::history_size > 0)
   {
     history_index = (BTS7960::history_size + --history_index) % BTS7960::history_size;
@@ -87,19 +87,19 @@ void BTS7960::Reverse() {
     state.LM = history[history_index].LM;
     state.RM = history[history_index].RM;
 
-    setPins();
+    set_pins();
   }
 }
 
-void BTS7960::Stop() {
-  Movement(mid_signal_value, mid_signal_value);
+void BTS7960::stop() {
+  movement(mid_signal_value, mid_signal_value);
 }
 
 bool BTS7960::is_hard_driving_mode() {
   return movement_mode != min_signal_value;
 }
 
-BTS7960State BTS7960::scaleSignals(int y, int x) {
+BTS7960State BTS7960::scale_signals(int y, int x) {
 
   int signalY = (abs(y - mid_signal_value) >= off_signal_value) ? y : mid_signal_value;
   int signalX = (abs(x - mid_signal_value) >= off_signal_value) ? x : mid_signal_value;
@@ -146,7 +146,7 @@ BTS7960State BTS7960::scaleSignals(int y, int x) {
   return result;
 }
 
-void BTS7960::setPins()
+void BTS7960::set_pins()
 {
   analogWrite(left_motor_pwm_pin, state.LM);
   analogWrite(right_motor_pwm_pin, state.RM);
@@ -156,7 +156,7 @@ void BTS7960::setPins()
   log("[BTS7960] DIRECT_LM: " + String(state.DIRECT_LM) + " DIRECT_RM: " + String(state.DIRECT_RM) + " LM: " + String(state.LM) + " RM: " + String(state.RM));
 }
 
-void BTS7960::saveState() {
+void BTS7960::save_state() {
   if (BTS7960::history_size > 0 && (state.LM != LOW || state.RM != LOW))
   {
     history[history_index] = state;

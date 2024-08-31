@@ -2,7 +2,8 @@
 
 // SC08A Manual: https://drive.google.com/file/d/0BzFWfMiqqjyqem1oQnlXUk4yaXc/view?resourcekey=0-jyKQAxRWIkpJ6Szne90Y1g
 
-SC08A::SC08A(HardwareSerial& serial) : uart(&serial) {
+SC08A::SC08A(HardwareSerial& serial) {
+    this->uart = &serial;
     channels = {1, 2, 3, 4, 5, 6, 7, 8};
 }
 
@@ -11,27 +12,27 @@ SC08A::~SC08A() {
     activate_choosen_servo_channels();
 }
 
-void SC08A::SetChannels(const std::vector<unsigned char>& channelsToActivate) {
-    channels = channelsToActivate;
-}
-
-void SC08A::SetLogger(HardwareSerial* serial) {
+void SC08A::set_logger(HardwareSerial* serial) {
     logger = serial;
 }
 
-void SC08A::SetInputRange(int min, int max) {
+void SC08A::set_channels(const std::vector<unsigned char>& channelsToActivate) {
+    channels = channelsToActivate;
+}
+
+void SC08A::set_input_range(int min, int max) {
   if (min < max) {
     signalRange.Minimum = min;
     signalRange.Maximum = max;
   }
 }
 
-void SC08A::Init() {
+void SC08A::init() {
     uart->begin(9600);
     activate_choosen_servo_channels();
 }
 
-void SC08A::Set(const std::vector<unsigned char>& channelsToSet, int position, unsigned char velocity) { 
+void SC08A::set(const std::vector<unsigned char>& channelsToSet, int position, unsigned char velocity) { 
     int position_before_scale = position;
 
     if (signalRange.Minimum != 0 || signalRange.Maximum != 0) {
@@ -40,7 +41,7 @@ void SC08A::Set(const std::vector<unsigned char>& channelsToSet, int position, u
       );
     }
 
-    log("[SC08A] Channels: " + convertVectorToString(channelsToSet) + " Position: " + position_before_scale + "(" + position + ") " + "Velocity: " + velocity);    
+    log("[SC08A] Channels: " + convert_vector_to_string(channelsToSet) + " Position: " + position_before_scale + "(" + position + ") " + "Velocity: " + velocity);    
 
     if (std::all_of(channelsToSet.begin(), channelsToSet.end(), [&](unsigned char channel) { return contains(channels, channel); }) && position >= positions.Minimum && position <= positions.Maximum) {
         for (size_t i = 0; i < channelsToSet.size(); i++) {
@@ -59,23 +60,23 @@ void SC08A::Set(const std::vector<unsigned char>& channelsToSet, int position, u
     }
 }
 
-void SC08A::SetInverted(const std::vector<unsigned char>& channelsToSet, int position, unsigned char velocity) {
-  SC08A::Set(channelsToSet, CRSF_CHANNEL_VALUE_MIN + CRSF_CHANNEL_VALUE_MAX - position, velocity);
+void SC08A::set_inverted(const std::vector<unsigned char>& channelsToSet, int position, unsigned char velocity) {
+  SC08A::set(channelsToSet, CRSF_CHANNEL_VALUE_MIN + CRSF_CHANNEL_VALUE_MAX - position, velocity);
 }
 
-void SC08A::Home() {
+void SC08A::home() {
     log("[SC08A] Home ", false);
     if (signalRange.Minimum != 0 || signalRange.Maximum != 0)
-      Set(channels, (signalRange.Minimum + (signalRange.Maximum - signalRange.Minimum) / 2));
+      set(channels, (signalRange.Minimum + (signalRange.Maximum - signalRange.Minimum) / 2));
     else
-      Set(channels, positions.Home);
+      set(channels, positions.Home);
 }
 
-bool SC08A::IsPossibleMovementY(int Camera_Y) {
+bool SC08A::is_possible_movement_Y(int Camera_Y) {
   return Camera_Y >= CRSF_CHANNEL_VALUE_MID && Camera_Y <= (CRSF_CHANNEL_VALUE_MID + (CRSF_CHANNEL_VALUE_MAX - CRSF_CHANNEL_VALUE_MID)/2);
 }
 
-bool SC08A::IsPossibleMovementX(int Camera_X) {
+bool SC08A::is_possible_movement_X(int Camera_X) {
   return Camera_X >= (CRSF_CHANNEL_VALUE_MIN + (CRSF_CHANNEL_VALUE_MID - CRSF_CHANNEL_VALUE_MIN)/2) && Camera_X <= (CRSF_CHANNEL_VALUE_MID + (CRSF_CHANNEL_VALUE_MAX - CRSF_CHANNEL_VALUE_MID)/2);
 }
 
@@ -98,7 +99,7 @@ bool SC08A::contains(const std::vector<unsigned char>& vec, unsigned char value)
     return std::find(vec.begin(), vec.end(), value) != vec.end();
 }
 
-String SC08A::convertVectorToString(const std::vector<unsigned char>& vec) {
+String SC08A::convert_vector_to_string(const std::vector<unsigned char>& vec) {
   String result = "";
   for (size_t i = 0; i < vec.size(); ++i) { result += String(vec[i]); if (i < vec.size() - 1) { result += ","; } }
   return result;

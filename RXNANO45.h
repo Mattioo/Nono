@@ -36,20 +36,21 @@ struct CrsfSerialState {
 class RXNANO45 {
 public:
   RXNANO45(HardwareSerial& serial);
-  void SetLogger(HardwareSerial* serial = nullptr);
-  void Init();
-  static bool ArmState();
-  int GetChannel(unsigned int channel);
-  CrsfSerialState GetState();
-  void Loop();
+  void set_logger(HardwareSerial* serial = nullptr);
+  void init();
+  void loop();
+
+  static bool arm_state();
+  int get_channel(unsigned int channel);
+  CrsfSerialState get_state();
+  
   static bool IsInit;
   static bool IsAlive;
 
 private:
   CrsfSerial receiver;
-  HardwareSerial* logger;
-
   static bool* ARM;
 
+  HardwareSerial* logger;
   void log(String val, bool line = true);
 };
