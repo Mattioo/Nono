@@ -4,14 +4,14 @@
 #include <Adafruit_INA219.h>
 
 struct INA219State {
-  INA219State(float shunt_voltage = 0, float bus_voltage = 0, float current_mA = 0, float power_mW = 0, float load_voltage = 0, float load_voltage_per_cell = 0, float drawn_mAH = 0) : ShuntVoltage(shunt_voltage), BusVoltage(bus_voltage), Current_mA(current_mA), Power_mW(power_mW), LoadVoltage(load_voltage), LoadVoltagePerCell(load_voltage_per_cell), Drawn_mAH(drawn_mAH) {}
+  INA219State(float shunt_voltage = 0, float bus_voltage = 0, float current_mA = 0, float power_mW = 0, float load_voltage = 0, float bus_voltage_per_cell = 0, float drawn_mAH = 0) : ShuntVoltage(shunt_voltage), BusVoltage(bus_voltage), Current_mA(current_mA), Power_mW(power_mW), LoadVoltage(load_voltage), BusVoltagePerCell(bus_voltage_per_cell), Drawn_mAH(drawn_mAH) {}
 
   float ShuntVoltage;
   float BusVoltage;
   float Current_mA;
   float Power_mW;
   float LoadVoltage;
-  float LoadVoltagePerCell;
+  float BusVoltagePerCell;
   double Drawn_mAH;
 
   uint16_t Capacity;

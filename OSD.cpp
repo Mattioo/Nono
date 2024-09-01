@@ -86,10 +86,10 @@ void OSD::handle_request(uint8_t command) {
       break;
     }
     case MSP_BATTERY_STATE: {
-      uint8_t legacyBatteryVoltage = static_cast<uint8_t>(battery_state.LoadVoltage);
+      uint8_t legacyBatteryVoltage = static_cast<uint8_t>(battery_state.BusVoltage);
       uint16_t amperage = static_cast<uint16_t>(battery_state.Current_mA);
       uint8_t batteryState = static_cast<uint8_t>(
-        ((battery_state.LoadVoltagePerCell - battery_state.Min_voltage_per_cell) / (battery_state.Max_voltage_per_cell - battery_state.Min_voltage_per_cell)) * 100
+        ((battery_state.BusVoltagePerCell - battery_state.Min_voltage_per_cell) / (battery_state.Max_voltage_per_cell - battery_state.Min_voltage_per_cell)) * 100
       );
       uint16_t drawn_mAH = static_cast<uint16_t>(battery_state.Drawn_mAH);
       uint8_t responseData[] =

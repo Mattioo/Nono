@@ -30,14 +30,14 @@ void INA219::loop() {
     state.Current_mA = ina219.getCurrent_mA();
     state.Power_mW = ina219.getPower_mW();
     state.LoadVoltage = state.BusVoltage + (state.ShuntVoltage / 1000);
-    state.LoadVoltagePerCell = state.LoadVoltage / state.Cells;
+    state.BusVoltagePerCell = state.BusVoltage / state.Cells;
     state.Drawn_mAH += (state.Current_mA * static_cast<double>(elapsedTime) / 3600000);
 
     log("[INA219]");
     log("Bus Voltage: " + String(state.BusVoltage) + "V");
     log("Shunt Voltage: " + String(state.ShuntVoltage) + "mV");
     log("Load Voltage: " + String(state.LoadVoltage) + "V");
-    log("Load Voltage Per Cell: " + String(state.LoadVoltagePerCell) + "V");
+    log("Bus Voltage Per Cell: " + String(state.BusVoltagePerCell) + "V");
     log("Drawn_mAH: " + String(state.Drawn_mAH) + "V");
     log("Current: " + String(state.Current_mA) + "mA");
     log("Power: " + String(state.Power_mW) + "mV");
