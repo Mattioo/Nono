@@ -27,8 +27,8 @@ void OSD::init(uint16_t wait_to_start_ms, uint16_t batteryCapacity, uint8_t batt
   
     state.batteryCapacity = batteryCapacity;
     state.batteryCellCount = batteryCellCount;
-    state.vMin = vMin;
-    state.vMax = vMax;
+    state.vMin = batteryCellCount * vMin;
+    state.vMax = batteryCellCount * vMax;
 
     log("[OSD] START");
 }
@@ -80,15 +80,11 @@ void OSD::loop() {
   }
 }
 
-void OSD::set_state(bool arm, float voltage) {
+void OSD::set_state(bool arm, uint8_t voltage, uint16_t sensor_distance) {
   state.arm = arm;
-  state.voltage = (uint8_t)(voltage * 10);
-  log("[OSD] ARM: " + String(arm) + " Voltage: " + String(voltage));
-}
-
-void OSD::set_distance(uint16_t sensor_distance) {
+  state.voltage = voltage;
   state.sensor_distance = sensor_distance;
-  log("[OSD] Distance: " + String(sensor_distance));
+  log("[OSD] ARM: " + String(arm) + " Voltage: " + String(voltage) + " Distance: " + String(sensor_distance));
 }
 
 void OSD::log(String val, bool line) {

@@ -126,8 +126,7 @@ class OSD {
     OSD(HardwareSerial& serial);
     void set_logger(HardwareSerial* serial = nullptr);
     void init(uint16_t wait_to_start_ms, uint16_t batteryCapacity, uint8_t batteryCellCount, float vMin, float vMax);
-    void set_state(bool arm, float voltage);
-    void set_distance(uint16_t sensor_distance);
+    void set_state(bool arm, uint8_t voltage, uint16_t sensor_distance);
     void loop();
 
   private:

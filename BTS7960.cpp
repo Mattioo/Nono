@@ -118,19 +118,8 @@ BTS7960State BTS7960::scale_signals(int y, int x) {
     ? LOW
     : HIGH;
 
-  // SOFT DRIVING MODE
-  if (is_hard_driving_mode()) {
-    if (directX == 1) {
-      result.LM = forceY;
-      result.RM = forceY - forceX;
-    }
-    else {
-      result.LM = forceY - forceX;
-      result.RM = forceY;
-    }
-  }
   // HARD DRIVING MODE
-  else {
+  if (is_hard_driving_mode()) {
     if (absX > off_signal_value) {
       if (directX == 1) {
         result.DIRECT_LM = LOW;
@@ -142,6 +131,17 @@ BTS7960State BTS7960::scale_signals(int y, int x) {
       }
     }
     result.LM = result.RM = forceY;
+  }
+  // SOFT DRIVING MODE
+  else {
+    if (directX == 1) {
+      result.LM = forceY;
+      result.RM = forceY - forceX;
+    }
+    else {
+      result.LM = forceY - forceX;
+      result.RM = forceY;
+    }
   }
   return result;
 }

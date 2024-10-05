@@ -2,7 +2,6 @@
 #include "SC08A.h"
 #include "A02YYUW.h"
 #include "BTS7960.h"
-#include "INA219.h"
 #include "OSD.h"
 
 #define BUZZER_PIN 6
@@ -13,8 +12,7 @@ std::vector<unsigned char> servo_channels = {1, 2};
 A02YYUW a02yyuw(Serial);
 RXNANO45 rxnano45(Serial1);
 SC08A sc08a(Serial2);
-OSD osd(Serial3, "Nono");
-INA219 ina219(6500, 3, 3.3, 4.2);
+OSD osd(Serial3);
 BTS7960 bts7960;
 
 HardwareSerial* setup_logger(HardwareSerial* serial = nullptr) {
@@ -26,12 +24,12 @@ HardwareSerial* setup_logger(HardwareSerial* serial = nullptr) {
 
 void setup() {
   HardwareSerial* logger = setup_logger(); // setup_logger(&Serial);
+  
   setup_outputs();  
   setup_rxnano45(logger);
   setup_sc08a(logger);
   setup_a02yyuw(logger);
   setup_bts7960(logger);
-  setup_ina219(logger);
   setup_osd(logger);
 }
 
@@ -68,14 +66,9 @@ void setup_bts7960(HardwareSerial* logger) {
   bts7960.init();
 }
 
-void setup_ina219(HardwareSerial* logger) {
-  ina219.set_logger(logger);
-  ina219.init();
-}
-
 void setup_osd(HardwareSerial* logger) {
   osd.set_logger(logger);
-  osd.init(15000);
+  osd.init(5000, 6500, 3, 9.9, 11.1);
 }
 
 void set_buzzer(bool isAlive) {
@@ -87,7 +80,22 @@ void set_light(int signal) {
 }
 
 bool check_distance(int signal) {
-  return signal == CRSF_CHANNEL_VALUE_MAX;
+  return signal == CRSF_CHANNEL_VALUE_MID;
+}
+
+float get_voltage() {
+  const int numSamples = 10;
+  int totalAnalogValue = 0;
+  
+  for (int i = 0; i < numSamples; i++) {
+    totalAnalogValue += analogRead(A0);
+    delay(5);
+  }
+  
+  int averageAnalogValue = totalAnalogValue / numSamples;
+  
+  float measuredVoltage = (averageAnalogValue * 3.3) / 4095;
+  return measuredVoltage * 5.0 * 4.2857;
 }
 
 // EVENT
@@ -104,8 +112,8 @@ void loop() {
       set_light(controller.A);
       bts7960.set_mode(controller.B);
 
-      if (a02yyuw.distance_received()) {
-        osd.set_sensor_distance(a02yyuw.get_distance());
+      if (check_distance(controller.C) && a02yyuw.distance_received()) {
+        osd.set_distance(a02yyuw.get_distance());
       }
 
       bts7960.movement(controller.Move_Y, controller.Move_X);
@@ -124,9 +132,7 @@ void loop() {
     set_buzzer(RXNANO45::IsAlive);
 
   rxnano45.loop();
-  ina219.loop();
 
-  osd.set_arm(RXNANO45::arm_state());
-  osd.set_battery_state(ina219.get_state());
+  osd.set_state(RXNANO45::arm_state(), get_voltage());
   osd.loop();
 }
