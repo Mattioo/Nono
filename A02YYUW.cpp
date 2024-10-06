@@ -1,5 +1,7 @@
 #include "A02YYUW.h"
 
+// A02YYUW Manual: https://wiki.dfrobot.com/_A02YYUW_Waterproof_Ultrasonic_Sensor_SKU_SEN0311
+
 A02YYUW::A02YYUW(HardwareSerial& serial) : distance(0), dataIndex(0), distanceReceived(false) {
   this->uart = &serial;
 }

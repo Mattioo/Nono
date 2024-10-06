@@ -7,7 +7,7 @@
 #define BUZZER_PIN 6
 #define LIGHT_PIN 8
 
-std::vector<unsigned char> servo_channels = {1, 2};
+std::vector<unsigned char> servo_channels = {1, 2, 3};
 
 A02YYUW a02yyuw(Serial);
 RXNANO45 rxnano45(Serial1);
@@ -79,6 +79,10 @@ void set_light(int signal) {
   digitalWrite(LIGHT_PIN, signal == CRSF_CHANNEL_VALUE_MAX ? HIGH : LOW);
 }
 
+bool set_distance_sensor(int signal) {
+  return signal == CRSF_CHANNEL_VALUE_MAX;
+}
+
 bool check_distance(int signal) {
   return signal == CRSF_CHANNEL_VALUE_MID;
 }
@@ -112,13 +116,15 @@ void loop() {
       set_light(controller.A);
       bts7960.set_mode(controller.B);
 
-      if (check_distance(controller.C) && a02yyuw.distance_received()) {
+      if (check_distance(controller.C) && a02yyuw.distance_received())
         osd.set_distance(a02yyuw.get_distance());
-      }
 
       bts7960.movement(controller.Move_Y, controller.Move_X);
 
-      if (sc08a.is_possible_movement_Y(controller.Camera_Y)) sc08a.set({ servo_channels[0] }, controller.Camera_Y);
+      bool setDistanceSensor = set_distance_sensor(controller.D);
+
+      if (setDistanceSensor && sc08a.is_possible_movement_sensor(controller.Camera_Y)) sc08a.set_inverted({ servo_channels[2] }, controller.Camera_Y);
+      else if (sc08a.is_possible_movement_Y(controller.Camera_Y)) sc08a.set({ servo_channels[0] }, controller.Camera_Y);
       if (sc08a.is_possible_movement_X(controller.Camera_X)) sc08a.set_inverted({ servo_channels[1] }, controller.Camera_X);
     }
   }

@@ -72,6 +72,10 @@ void SC08A::home() {
       set(channels, positions.Home);
 }
 
+bool SC08A::is_possible_movement_sensor(int Camera_Y) {
+  return Camera_Y >= (CRSF_CHANNEL_VALUE_MID - (CRSF_CHANNEL_VALUE_MAX - CRSF_CHANNEL_VALUE_MID)/2) && Camera_Y <= (CRSF_CHANNEL_VALUE_MID + (CRSF_CHANNEL_VALUE_MAX - CRSF_CHANNEL_VALUE_MID)/2);
+}
+
 bool SC08A::is_possible_movement_Y(int Camera_Y) {
   return Camera_Y >= CRSF_CHANNEL_VALUE_MID && Camera_Y <= (CRSF_CHANNEL_VALUE_MID + (CRSF_CHANNEL_VALUE_MAX - CRSF_CHANNEL_VALUE_MID)/2);
 }

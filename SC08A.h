@@ -32,6 +32,7 @@ public:
     void set(const std::vector<unsigned char>& channels, int position, unsigned char velocity = 100);
     void set_inverted(const std::vector<unsigned char>& channels, int position, unsigned char velocity = 100);
     void home();
+    bool is_possible_movement_sensor(int Camera_Y);
     bool is_possible_movement_Y(int Camera_Y);
     bool is_possible_movement_X(int Camera_X);
 
