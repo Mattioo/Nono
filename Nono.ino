@@ -31,6 +31,8 @@ void setup() {
   setup_a02yyuw(logger);
   setup_bts7960(logger);
   setup_osd(logger);
+
+  pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void setup_outputs() {
@@ -83,10 +85,6 @@ bool set_distance_sensor(int signal) {
   return signal == CRSF_CHANNEL_VALUE_MAX;
 }
 
-bool check_distance(int signal) {
-  return signal == CRSF_CHANNEL_VALUE_MID;
-}
-
 float get_voltage() {
   const int numSamples = 10;
   int totalAnalogValue = 0;
@@ -102,22 +100,14 @@ float get_voltage() {
   return measuredVoltage * 5.0 * 4.2857;
 }
 
-// EVENT
-void serialEvent() {
-  a02yyuw.receive_data();
-}
-
 void loop() {
   if (RXNANO45::IsAlive) {
     CrsfSerialState controller = rxnano45.get_state();
-    
+
     if (RXNANO45::arm_state())
     {
       set_light(controller.A);
       bts7960.set_mode(controller.B);
-
-      if (check_distance(controller.C) && a02yyuw.distance_received())
-        osd.set_distance(a02yyuw.get_distance());
 
       bts7960.movement(controller.Move_Y, controller.Move_X);
 
@@ -138,7 +128,9 @@ void loop() {
     set_buzzer(RXNANO45::IsAlive);
 
   rxnano45.loop();
+  a02yyuw.loop();
 
   osd.set_state(RXNANO45::arm_state(), get_voltage());
+  osd.set_distance(a02yyuw.get_distance());
   osd.loop();
 }
