@@ -70,7 +70,7 @@ void setup_bts7960(HardwareSerial* logger) {
 
 void setup_osd(HardwareSerial* logger) {
   osd.set_logger(logger);
-  osd.init(5000, 6500, 3, 9.9, 11.1);
+  osd.init(5000, 6500, 3, 10.5, 12.6);
 }
 
 void set_buzzer(bool isAlive) {
