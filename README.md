@@ -15,7 +15,7 @@ https://botland.com.pl/orczyki-do-serw/12538-aluminiowy-okragly-orczyk-20mm-6mm-
 *  Serwo Feetech FT6335M - standard (x3) ~ 330 zł
 https://botland.com.pl/serwa-typu-standard/17694-serwo-feetech-ft6335m-standard-5904422328474.html
 
-* Górna część obudowy zaprojektowana w AutoCAD 2024 i wycięta laserem na podstawie przygotowanego projektu [Nono.dxf](External/Nono.dxf) przez firmę AJMaker ~ 350 zł
+* Górna część obudowy zaprojektowana w AutoCAD 2024 i wycięta laserem przez firmę AJMaker na podstawie przygotowanego projektu [Nono.dxf](External/Nono.dxf) ~ 350 zł
 https://ajmaker.pl/produkt/ciecie-laserem/
 
 ## 2.2. Elementy elektroniczne
