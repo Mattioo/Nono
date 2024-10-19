@@ -7,6 +7,7 @@
 * Doinstalować do Arduino IDE bibliotekę ReefwingMSP v. 2.0.0 (dostępną również w repozytorium: [Reefwing-MSP-main.zip](External/Reefwing-MSP-main.zip)).
 * Skonfigurować Arduino IDE do pracy z Arduino Due:  
 Tools -> Board -> Arduino SAM Boards(32-bits ARM Cortex-M3) -> Arduino Due (Programming Port).
+* Ustawić przy pomocy potencjometra na przetwornicy Buck napięcie wyjściowe dla złącza ADJ na +/- 7V
 
 # 2. Komponenty
 ## 2.1. Elementy konstrukcyjne
