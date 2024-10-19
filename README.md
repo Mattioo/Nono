@@ -1,5 +1,10 @@
 # 1. Wprowadzenie
 ## 1.1 Cel projektu
+## 1.2 Konfiguracja
+
+* Należy podłączyć i zrootować gogle oraz air unit wykorzystując platformę WTFOS (https://fpv.wtf/) i zainstalować przez dostępny tam PackageManager pakiet msp-osd na obu urządzeniach umożliwiając interpretacje komunikatów protokołu komunikacyjnego MSP
+* Włączamy w ustawieniach gogli opcję "Custom OSD"
+
 # 2. Komponenty
 ## 2.1. Elementy konstrukcyjne
 
