@@ -16,7 +16,7 @@ Ten projekt to zdalnie sterowany czołg RC oparty na Arduino Due, zaprojektowany
 * Doinstalować do Arduino IDE bibliotekę ReefwingMSP v. 2.0.0 (dostępną również w repozytorium: [Reefwing-MSP-main.zip](External/Reefwing-MSP-main.zip)).
 * Skonfigurować Arduino IDE do pracy z Arduino Due:  
 Tools -> Board -> Arduino SAM Boards(32-bits ARM Cortex-M3) -> Arduino Due (Programming Port).
-* Wgrać na Arduino Due program przygotowany w pliku [Nono.ino](Nono.ino).
+* Wgrać na Arduino Due program przygotowany w pliku [Nono.ino](Nono.ino) (Należy odpiąć czujnik A02YYUW na czas wgrywania oprogramowania).
 * Ustawić przy pomocy potencjometra na przetwornicy Buck napięcie wyjściowe dla złącza ADJ na +/- 7V.
 
 # 2. Komponenty
