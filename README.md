@@ -12,9 +12,6 @@ https://botland.com.pl/uchwyty-i-mocowania-do-serw/13500-uchwyt-do-serw-standard
 * Aluminiowy okrągły orczyk - 20mm / 6mm (x3) ~ 9 zł
 https://botland.com.pl/orczyki-do-serw/12538-aluminiowy-okragly-orczyk-20mm-6mm-5904422319533.html
 
-*  Serwo Feetech FT6335M - standard (x3) ~ 330 zł
-https://botland.com.pl/serwa-typu-standard/17694-serwo-feetech-ft6335m-standard-5904422328474.html
-
 * Górna część obudowy zaprojektowana w AutoCAD 2024 i wycięta laserem przez firmę AJMaker na podstawie przygotowanego projektu [Nono.dxf](External/Nono.dxf) ~ 350 zł
 https://ajmaker.pl/produkt/ciecie-laserem/
 
@@ -23,7 +20,16 @@ https://ajmaker.pl/produkt/ciecie-laserem/
 * Wentylator 08025DA-12P-AA-00 [80x80x25] 12VDC (chłodzenie air unit - 75 CFM) ~ 110zł
 https://www.mouser.pl/ProductDetail/NMB-Technologies/08025DA-12P-AA-00?qs=byeeYqUIh0PE89S%2FBCp52A%3D%3D
 
+*  Serwo Feetech FT6335M - standard (x3) ~ 330 zł
+https://botland.com.pl/serwa-typu-standard/17694-serwo-feetech-ft6335m-standard-5904422328474.html
+
 ## 2.3. Elementy wyposażenia
+
+* Gogle DJI FPV V2 ~ 3000 zł
+https://ironsky.pl/drony-sklep/produkt/dji-fpv-goggles-v2/?srsltid=AfmBOopl98Kduze9ftT5VyNm-hO431iGa1I_OtloEMRCiHwcjjEIiese
+
+* Kontroler TBS Tango 2 (Team Blackspeep) ~ 900 zł
+https://www.ebay.com/itm/145920613727?_skw=team+blacksheep+tango+2+pro&itmmeta=01JAJEEMV89AQYB96F29622V1W&hash=item21f98bdd5f:g:KNgAAOSwk5tmqT6B&itmprp=enc%3AAQAJAAAA4HoV3kP08IDx%2BKZ9MfhVJKllJQmODqyFHTJrScGLve1TH%2F76BQsyXDW2tROL4CbuuxmPWG%2FIgGwpQvXbXdwWJ7ZUy26Tw4M6vKz7KCb8zXnN%2BlRFyxq3MwnzkDIhFXaT4FNHJ0eb5jHBGkLlR%2FXv6%2FS9NL9lpteB0Xnlyi%2F9TYXIW1IB9LhddS%2FY64iULPoAfydMg1iw7yB6cBS3tOTW0xdhjt3tl%2F11%2F5JA%2FfOOBIj7cnLg7sAB8UWMBwC918y76qh%2BiNJclxqtsCIpADwhjbWt96gmoXMg6CicdOe%2BR3hr%7Ctkp%3ABk9SR97Nus7UZA
 
 ## 2.4. Dodatkowe elementy
 
