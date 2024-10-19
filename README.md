@@ -30,6 +30,36 @@ https://www.mouser.pl/ProductDetail/NMB-Technologies/08025DA-12P-AA-00?qs=byeeYq
 *  Serwo Feetech FT6335M - standard (x3) ~ 330 zł
 https://botland.com.pl/serwa-typu-standard/17694-serwo-feetech-ft6335m-standard-5904422328474.html
 
+* Buzzer z zasilaniem LiPo Iflight YR50B_S Finder Buzzer 100dB ~ 50 zł
+https://dronexpert.eu/buzzer-z-zasilaniem-lipo-iflight-yr50b-s-finder-buzzer-100db-p-14827.html
+
+* Przetwornica Buck 3A wielokanałowa 3.3V 5V 12V ~ 35 zł
+https://allegro.pl/oferta/przetwornica-buck-3a-wielokanalowa-3-3v-5v-12v-14156675359
+
+* Moduł przekaźnika Iduino - 1 kanał - styki 10A/250VAC - cewka 5V ~ 7 zł
+https://botland.com.pl/przekazniki-przekazniki-arduino/8228-modul-przekaznika-iduino-1-kanal-styki-10a250vac-cewka-5v-5903351241229.html?cd=18298825651&ad=&kd=&gad_source=1&gclid=Cj0KCQjwsc24BhDPARIsAFXqAB3QbrJrIXz3Gwd0XWCuOFroiZ-3YjjVR135QzmRXGMxBxCA4fUP6KsaAnkHEALw_wcB
+
+* Czujnik napięcia 0-25V dzielnik 5V/25V ~ 4 zł
+https://allegro.pl/oferta/770-czujnik-napiecia-0-25v-dzielnik-5v-25v-arduino-13720748764
+
+* Ultradźwiękowy czujnik odległości A02YYUW 3-450cm - wodoodporny - DFRobot SEN0311 ~ 105 zł
+https://botland.com.pl/ultradzwiekowe-czujniki-odleglosci/15717-ultradzwiekowy-czujnik-odleglosci-a02yyuw-3-450cm-wodoodporny-dfrobot-sen0311-5904422377984.html?cd=20567593583&ad=&kd=&gad_source=1&gclid=Cj0KCQjwsc24BhDPARIsAFXqAB2PdXAQ75-6Ny77AunFOs1t5L1gmo8vVB5554h2xEbLI8bjrPAJ4aUaAk5XEALw_wcB
+
+* Sterownik silników (DRI0018)
+https://www.mouser.pl/ProductDetail/DFRobot/DRI0018?qs=Zcin8yvlhnO3vbExFigI8Q%3D%3D&_gl=1*1xdwj3q*_ga*MTIxNzU1ODQyMC4xNzI5MzQ1NDkw*_ga_15W4STQT4T*MTcyOTM0NTQ5MC4xLjAuMTcyOTM0NTQ5MS41OS4wLjA.
+
+* Cytron SC08A - sterownik serw 8-kanałowy - UART ~ 72 zł
+https://botland.com.pl/sterowniki-serw/12396-cytron-sc08a-sterownik-serw-8-kanalowy-uart-5904422319137.html
+
+* Arduino Due ARM Cortex ~ 215 zł
+https://botland.com.pl/arduino-seria-podstawowa-oryginalne-plytki/1214-arduino-due-arm-cortex-a000062-7630049200487.html?cd=18298825651&ad=&kd=&gad_source=1&gclid=Cj0KCQjwsc24BhDPARIsAFXqAB0eY-vECM-w-QgRXqhN7smcFOxYbvRtrhOl6RkTT_-UTjtrCfVOldIaAsOKEALw_wcB
+
+* Akumulator 6500mAh 11.1V 60C BASHING Gens Ace LiPo (x2) ~ 700 zł
+https://allegro.pl/oferta/akumulator-6500mah-11-1v-60c-bashing-gens-ace-lipo-14795865034?utm_feed=aa34192d-eee2-4419-9a9a-de66b9dfae24&utm_source=google&utm_medium=cpc&utm_campaign=_elktrk_rtvagd_pla_pmax_bpg&ev_campaign_id=21823047314&gad_source=1&gclid=Cj0KCQjwsc24BhDPARIsAFXqAB0Kw_ePvgkdK10tTz_M3XlffZMfObGihc1DgXJ3vKlefNe4oD-2gUMaAnlSEALw_wcB
+
+* Nadajnik z kamerą Caddx Air Unit Polar starlight Digital HD DJI FPV system	~ 940 zł
+https://www.nobshop.pl/nadajnik-z-kamera-caddx-air-unit-polar-starlight-digital-hd-dji-fpv-system-p-2978.html
+
 ## 2.3. Elementy wyposażenia
 
 * Gogle DJI FPV V2 ~ 3000 zł
