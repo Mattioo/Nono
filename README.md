@@ -20,6 +20,9 @@ https://ajmaker.pl/produkt/ciecie-laserem/
 
 ## 2.2. Elementy elektroniczne
 
+* Wentylator 08025DA-12P-AA-00 (chłodzenie air unit - 75 CFM) ~ 110zł
+https://www.mouser.pl/ProductDetail/NMB-Technologies/08025DA-12P-AA-00?qs=byeeYqUIh0PE89S%2FBCp52A%3D%3D
+
 ## 2.3. Elementy wyposażenia
 
 ## 2.4. Dodatkowe elementy
