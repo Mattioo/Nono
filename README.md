@@ -130,3 +130,9 @@ https://allegro.pl/oferta/xt90h-komplet-z-oslonkami-konektor-amass-oryginal-8186
 
 ## 3.8. Odbiornik TBS Crossfire Nano RX (SE)
 ![RXNANO45](Images/RXNANO45.jpg)
+
+## 3.9. Ultradźwiękowy czujnik odległości A02YYUW 3-450cm - wodoodporny - DFRobot SEN0311
+![A02YYUW](Images/A02YYUW.jpg)
+
+## 3.10. Buzzer z zasilaniem LiPo Iflight YR50B_S Finder Buzzer 100dB
+![Buzzer z zasilaniem LiPo Iflight YR50B_S Finder Buzzer 100dB](Images/Buzzer%20z%20zasilaniem%20LiPo%20Iflight%20YR50B_S%20Finder%20Buzzer%20100dB.jpg)
