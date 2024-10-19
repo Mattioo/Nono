@@ -20,7 +20,36 @@ https://ajmaker.pl/produkt/ciecie-laserem/
 
 ## 2.2. Elementy elektroniczne
 
+## 2.3. Elementy wyposażenia
 
+## 2.4. Dodatkowe elementy
+
+* 181 Radiator aluminiowy 9x9x5mm (x10) ~ 17 zł
+https://allegro.pl/oferta/181-radiator-aluminiowy-9x9x5mm-9382407076
+
+* M4 NAKRĘTKA KWADRATOWA NISKA 562 OCYNKOWANA 10SZT (x2) ~ 4 zł
+https://allegro.pl/oferta/m4-nakretka-kwadratowa-niska-562-ocynkowana-10szt-13056354425
+
+* M4x30 ŚRUBA SZEŚCIOKĄTNA NIERDZEWNA A2 933 (10) (x2) ~ 5 zł
+https://allegro.pl/oferta/m4x30-sruba-szesciokatna-nierdzewna-a2-933-10-14255374599
+
+* Podkładki płaskie 720 sztuk stal nierdzewna M2-M12 ~ 45 zł
+https://allegro.pl/oferta/podkladki-plaskie-720-sztuk-stal-nierdzewna-m2-m12-12966456002?bi_s=ads&bi_m=productlisting:desktop:query&bi_c=YWY1NjQ1OTctMDc4ZC00Mzk1LWIyOTEtY2M4Njk1ODJjOWRiAA&bi_t=ape&referrer=proxy&emission_unit_id=4bfd0f20-64d3-42c8-ba4c-36c5e7be9fc2
+
+* ZESTAW 440 ŚRUB 6-KĄTNE HEX ZE STALI NIERDZEWNEJ ~ 27 zł
+https://allegro.pl/oferta/zestaw-440-srub-6-katne-hex-ze-stali-nierdzewnej-16119291441?bi_s=ads&bi_m=productlisting:desktop:query&bi_c=ZGQxYTYyNzAtYTIyZC00YjA4LWE1NzMtMmZhZTY0MzA1NmJkAA&bi_t=ape&referrer=proxy&emission_unit_id=ae0418b0-7877-4451-9b7d-ad68f606ec56
+
+* Zestaw nylonowych śrubek i podkładek dystansowych M3 - 180 elementów ~ 34 zł
+https://botland.com.pl/produkty-wycofane/13577-zestaw-nylonowych-srubek-i-podkladek-dystansowych-m3-180-elementow-5904422320973.html
+
+* Przedłużacz do serw 45cm (x3) ~ 12 zł
+https://botland.com.pl/przewody-do-serw/1387-przedluzacz-do-serw-45cm-5904422350857.html
+
+* Przewody połączeniowe żeńsko-męskie 30cm kolorowe - 50szt. ~ 30 zł
+https://botland.com.pl/przewody-polaczeniowe-zensko-meskie/1438-przewody-polaczeniowe-zensko-meskie-30cm-kolorowe-50szt-5904422349400.html
+
+* Przewody połączeniowe męsko-męskie 30cm kolorowe - 50szt. ~ 28 zł
+https://botland.com.pl/przewody-polaczeniowe-mesko-meskie/1437-przewody-polaczeniowe-mesko-meskie-30cm-kolorowe-50szt-5904422356002.html
 
 
 
