@@ -97,5 +97,7 @@ https://botland.com.pl/przewody-polaczeniowe-zensko-meskie/1438-przewody-polacze
 * Przewody połączeniowe męsko-męskie 30cm kolorowe - 50szt. ~ 28 zł
 https://botland.com.pl/przewody-polaczeniowe-mesko-meskie/1437-przewody-polaczeniowe-mesko-meskie-30cm-kolorowe-50szt-5904422356002.html
 
+* XT90H komplet z osłonkami, konektor AMASS oryginał (x2) ~ 16 zł
+https://allegro.pl/oferta/xt90h-komplet-z-oslonkami-konektor-amass-oryginal-8186134922
 
 
