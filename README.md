@@ -53,6 +53,9 @@ https://botland.com.pl/produkty-wycofane/2691-dfrobot-bts7960-dwukanalowy-sterow
 * Cytron SC08A - sterownik serw 8-kanałowy - UART ~ 72 zł  
 https://botland.com.pl/sterowniki-serw/12396-cytron-sc08a-sterownik-serw-8-kanalowy-uart-5904422319137.html
 
+* Odbiornik TBS Crossfire Nano RX (SE) ~ 140 zł  
+https://www.nobshop.pl/odbiornik-tbs-crossfire-nano-rx-se-p-1694.html
+
 * Arduino Due ARM Cortex ~ 215 zł  
 https://botland.com.pl/arduino-seria-podstawowa-oryginalne-plytki/1214-arduino-due-arm-cortex-a000062-7630049200487.html?cd=18298825651&ad=&kd=&gad_source=1&gclid=Cj0KCQjwsc24BhDPARIsAFXqAB0eY-vECM-w-QgRXqhN7smcFOxYbvRtrhOl6RkTT_-UTjtrCfVOldIaAsOKEALw_wcB
 
