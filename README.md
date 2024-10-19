@@ -109,3 +109,6 @@ https://allegro.pl/oferta/xt90h-komplet-z-oslonkami-konektor-amass-oryginal-8186
 
 ## 3.1. Akumulator 6500mAh 11.1V 60C BASHING Gens Ace LiPo 
 ![Akumulator 6500mAh 11.1V 60C BASHING Gens Ace LiPo](Images/Akumulator%206500mAh%2011.1V%2060C%20BASHING%20Gens%20Ace%20LiPo.png)
+
+## 3.2. Przetwornica Buck 3A wielokanałowa 3.3V 5V 12V 
+![Przetwornica Buck 3A wielokanałowa 3.3V 5V 12V](Images/Przetwornica%20Buck%203A%20wielokanałowa%203.3V%205V%2012V.png)
