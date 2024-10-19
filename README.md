@@ -2,21 +2,21 @@
 ## 1.1 Cel projektu
 ## 1.2 Konfiguracja
 
-* Zrootować gogle oraz air unit wykorzystując platformę WTFOS (https://fpv.wtf/) i zainstalować przez dostępny tam PackageManager pakiet msp-osd (dostępny również w repozytorium: [msp-osd-0.10.1.zip](External/msp-osd-0.10.1.zip)) na obu urządzeniach umożliwiając interpretacje komunikatów protokołu komunikacyjnego MSP
-* Włączyć w ustawieniach gogli opcję "Custom OSD"
-* Doinstalować do Arduino IDE bibliotekę ReefwingMSP v. 2.0.0 (dostępną również w repozytorium: [Reefwing-MSP-main.zip](External/Reefwing-MSP-main.zip))
-* Skonfigurować Arduino IDE do pracy z Arduino Due: Tools -> Board -> Arduino SAM Boards(32-bits ARM Cortex-M3) -> Arduino Due (Programming Port)
+* Zrootować gogle oraz air unit wykorzystując platformę WTFOS (https://fpv.wtf/) i zainstalować przez dostępny tam PackageManager pakiet msp-osd (dostępny również w repozytorium: [msp-osd-0.10.1.zip](External/msp-osd-0.10.1.zip)) na obu urządzeniach umożliwiając interpretacje komunikatów protokołu komunikacyjnego MSP.
+* Włączyć w ustawieniach gogli opcję "Custom OSD".
+* Doinstalować do Arduino IDE bibliotekę ReefwingMSP v. 2.0.0 (dostępną również w repozytorium: [Reefwing-MSP-main.zip](External/Reefwing-MSP-main.zip)).
+* Skonfigurować Arduino IDE do pracy z Arduino Due: Tools -> Board -> Arduino SAM Boards(32-bits ARM Cortex-M3) -> Arduino Due (Programming Port).
 
 # 2. Komponenty
 ## 2.1. Elementy konstrukcyjne
 
-* Kadłub: WT-200 (złożona metalowa obudowa z silnikami, gąsienicami i wbudowanym oświetleniem bez elektroniki) ~2000 zł uwzględniając podatek
+* Kadłub: WT-200 (złożona metalowa obudowa z silnikami, gąsienicami i wbudowanym oświetleniem bez elektroniki) ~2000 zł uwzględniając podatek  
 https://www.ebay.com/itm/355056959871?norover=1&mkevt=1&mkrid=711-169407-669907-5&mkcid=2&itemid=355056959871&targetid=296739514498&device=c&mktype=pla&googleloc=1011598&poi=&campaignid=21082369877&mkgroupid=160701766018&rlsatarget=pla-296739514498&abcId=&merchantid=5399845611&gad_source=1&gclid=Cj0KCQjwsc24BhDPARIsAFXqAB3d4eODbke1557Q6mTR9yhPd24dqa3JCsqlJvveJ4PRz2DknQPjAOgaArrIEALw_wcB
 
-* Uchwyt do serw: standard Pan/Tilt (x3) ~ 66 zł
+* Uchwyt do serw: standard Pan/Tilt (x3) ~ 66 zł  
 https://botland.com.pl/uchwyty-i-mocowania-do-serw/13500-uchwyt-do-serw-standard-pantilt-5904422358686.html
 
-* Aluminiowy okrągły orczyk - 20mm / 6mm (x3) ~ 9 zł
+* Aluminiowy okrągły orczyk - 20mm / 6mm (x3) ~ 9 zł  
 https://botland.com.pl/orczyki-do-serw/12538-aluminiowy-okragly-orczyk-20mm-6mm-5904422319533.html
 
 * Górna część obudowy zaprojektowana w AutoCAD 2024 i wycięta laserem przez firmę AJMaker na podstawie przygotowanego projektu [Nono.dxf](External/Nono.dxf) ~ 350 zł
