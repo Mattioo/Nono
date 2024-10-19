@@ -105,5 +105,7 @@ https://botland.com.pl/przewody-polaczeniowe-mesko-meskie/1437-przewody-polaczen
 * XT90H komplet z osłonkami, konektor AMASS oryginał (x2) ~ 16 zł  
 https://allegro.pl/oferta/xt90h-komplet-z-oslonkami-konektor-amass-oryginal-8186134922
 
-# Schemat połączeń
-..
+# 3. Schemat połączeń
+
+## 3.1. Akumulator 6500mAh 11.1V 60C BASHING Gens Ace LiPo.png  
+![Akumulator 6500mAh 11.1V 60C BASHING Gens Ace LiPo.png](Images/Akumulator 6500mAh 11.1V 60C BASHING Gens Ace LiPo.png)
