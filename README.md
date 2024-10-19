@@ -2,8 +2,9 @@
 ## 1.1 Cel projektu
 ## 1.2 Konfiguracja
 
-* Należy podłączyć i zrootować gogle oraz air unit wykorzystując platformę WTFOS (https://fpv.wtf/) i zainstalować przez dostępny tam PackageManager pakiet msp-osd na obu urządzeniach umożliwiając interpretacje komunikatów protokołu komunikacyjnego MSP
+* Należy podłączyć i zrootować gogle oraz air unit wykorzystując platformę WTFOS (https://fpv.wtf/) i zainstalować przez dostępny tam PackageManager pakiet msp-osd (dostępny również w repozytorium: [msp-osd](https://github.com/Mattioo/Nono/tree/master/External)) na obu urządzeniach umożliwiając interpretacje komunikatów protokołu komunikacyjnego MSP
 * Należy włączyć w ustawieniach gogli opcję "Custom OSD"
+* Należy doinstalować do Arduino IDE bibliotekę ReefwingMSP v. 2.0.0 (dostępną również w repozytorium: [Reefwing-MSP-main.zip](External/Reefwing-MSP-main.zip))
 
 # 2. Komponenty
 ## 2.1. Elementy konstrukcyjne
