@@ -12,6 +12,8 @@ https://botland.com.pl/uchwyty-i-mocowania-do-serw/13500-uchwyt-do-serw-standard
 * Aluminiowy okrągły orczyk - 20mm / 6mm (x3) ~ 9 zł
 https://botland.com.pl/orczyki-do-serw/12538-aluminiowy-okragly-orczyk-20mm-6mm-5904422319533.html
 
+*  Serwo Feetech FT6335M - standard (x3) ~ 330 zł
+https://botland.com.pl/serwa-typu-standard/17694-serwo-feetech-ft6335m-standard-5904422328474.html
 
 
 
