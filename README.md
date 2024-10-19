@@ -45,8 +45,8 @@ https://allegro.pl/oferta/770-czujnik-napiecia-0-25v-dzielnik-5v-25v-arduino-137
 * Ultradźwiękowy czujnik odległości A02YYUW 3-450cm - wodoodporny - DFRobot SEN0311 ~ 105 zł
 https://botland.com.pl/ultradzwiekowe-czujniki-odleglosci/15717-ultradzwiekowy-czujnik-odleglosci-a02yyuw-3-450cm-wodoodporny-dfrobot-sen0311-5904422377984.html?cd=20567593583&ad=&kd=&gad_source=1&gclid=Cj0KCQjwsc24BhDPARIsAFXqAB2PdXAQ75-6Ny77AunFOs1t5L1gmo8vVB5554h2xEbLI8bjrPAJ4aUaAk5XEALw_wcB
 
-* Sterownik silników (DRI0018)
-https://www.mouser.pl/ProductDetail/DFRobot/DRI0018?qs=Zcin8yvlhnO3vbExFigI8Q%3D%3D&_gl=1*1xdwj3q*_ga*MTIxNzU1ODQyMC4xNzI5MzQ1NDkw*_ga_15W4STQT4T*MTcyOTM0NTQ5MC4xLjAuMTcyOTM0NTQ5MS41OS4wLjA.
+* DFRobot BTS7960 - dwukanałowy sterownik silników 35V/15A ~ 260 zł
+https://botland.com.pl/produkty-wycofane/2691-dfrobot-bts7960-dwukanalowy-sterownik-silnikow-35v-15a-5903351243001.html
 
 * Cytron SC08A - sterownik serw 8-kanałowy - UART ~ 72 zł
 https://botland.com.pl/sterowniki-serw/12396-cytron-sc08a-sterownik-serw-8-kanalowy-uart-5904422319137.html
