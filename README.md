@@ -115,3 +115,12 @@ https://allegro.pl/oferta/xt90h-komplet-z-oslonkami-konektor-amass-oryginal-8186
 
 ## 3.3. Przetwornica Buck 3A wielokanałowa 3.3V 5V 12V 
 ![Przetwornica Buck 3A wielokanałowa 3.3V 5V 12V](Images/Przetwornica%20Buck%203A%20wielokanałowa%203.3V%205V%2012V.png)
+
+## 3.4. DFRobot BTS7960 - dwukanałowy sterownik silników 35V/15A
+![DFRobot BTS7960 - dwukanałowy sterownik silników 35V/15A](Images/BTS7960.jpg)
+
+## 3.5. Cytron SC08A - sterownik serw 8-kanałowy - UART
+![Cytron SC08A - sterownik serw 8-kanałowy - UART](Images/Cytron%20SC08A.jpg)
+
+## 3.6. Serwo Feetech FT6335M - standard (x3)
+![Serwo Feetech FT6335M - standard](Images/Serwo%20Feetech%20FT6335M.jpg)
