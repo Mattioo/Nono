@@ -107,5 +107,5 @@ https://allegro.pl/oferta/xt90h-komplet-z-oslonkami-konektor-amass-oryginal-8186
 
 # 3. Schemat połączeń
 
-## 3.1. Akumulator 6500mAh 11.1V 60C BASHING Gens Ace LiPo.png  
-![Akumulator 6500mAh 11.1V 60C BASHING Gens Ace LiPo.png](Images/Akumulator 6500mAh 11.1V 60C BASHING Gens Ace LiPo.png)
+## 3.1. Akumulator 6500mAh 11.1V 60C BASHING Gens Ace LiPo 
+![Akumulator 6500mAh 11.1V 60C BASHING Gens Ace LiPo](Images/Akumulator%206500mAh%2011.1V%2060C%20BASHING%20Gens%20Ace%20LiPo.png)
