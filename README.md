@@ -1,6 +1,6 @@
 # Nono
 
-![Prezentacja](https://img.youtube.com/vi/TIbfDBwoEBU/0.jpg)
+![Prezentacja](https://img.youtube.com/vi/TIbfDBwoEBU/0.jpg)  
 [Zobacz wideo na YouTube](https://www.youtube.com/watch?v=TIbfDBwoEBU)
 
 # 1. Wprowadzenie
