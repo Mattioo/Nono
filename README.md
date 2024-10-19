@@ -1,4 +1,10 @@
+# Nono
+
+![Prezentacja](https://img.youtube.com/vi/TIbfDBwoEBU/0.jpg)
+[Zobacz wideo na YouTube](https://www.youtube.com/watch?v=TIbfDBwoEBU)
+
 # 1. Wprowadzenie
+
 ## 1.1 Cel projektu
 
 Ten projekt to zdalnie sterowany czołg RC oparty na Arduino Due, zaprojektowany do eksploracji terenów na duże odległości. Pojazd wykorzystuje technologię Crossfire (CRSF) do precyzyjnego sterowania oraz cyfrowy system wizyjny DJI, który pozwala na przesyłanie obrazu z ruchomej kamery do gogli DJI FPV V2, wzbogaconego o podstawowe informacje OSD (On-Screen Display) dzięki protokołowi MSP. W repozytorium znajdziesz wszystkie potrzebne informacje i kod do zbudowania tej konstrukcji. Projekt ma na celu umożliwienie dalekozasięgowej eksploracji ciekawych miejsc, z możliwością rejestrowania wizji z pokładu pojazdu. W przyszłości planuję publikować materiały wideo i bardziej szczegółowe opisy działania. Miłej zabawy! :)
