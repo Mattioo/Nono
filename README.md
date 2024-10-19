@@ -5,8 +5,8 @@
 * Zrootować gogle oraz air unit wykorzystując platformę WTFOS (https://fpv.wtf/) i zainstalować przez dostępny tam PackageManager pakiet msp-osd (dostępny również w repozytorium: [msp-osd-0.10.1.zip](External/msp-osd-0.10.1.zip)) na obu urządzeniach umożliwiając interpretacje komunikatów protokołu komunikacyjnego MSP.
 * Włączyć w ustawieniach gogli opcję "Custom OSD".
 * Doinstalować do Arduino IDE bibliotekę ReefwingMSP v. 2.0.0 (dostępną również w repozytorium: [Reefwing-MSP-main.zip](External/Reefwing-MSP-main.zip)).
-* Skonfigurować Arduino IDE do pracy z Arduino Due:
-  Tools -> Board -> Arduino SAM Boards(32-bits ARM Cortex-M3) -> Arduino Due (Programming Port).
+* Skonfigurować Arduino IDE do pracy z Arduino Due:  
+Tools -> Board -> Arduino SAM Boards(32-bits ARM Cortex-M3) -> Arduino Due (Programming Port).
 
 # 2. Komponenty
 ## 2.1. Elementy konstrukcyjne
