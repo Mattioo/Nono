@@ -136,3 +136,15 @@ https://allegro.pl/oferta/xt90h-komplet-z-oslonkami-konektor-amass-oryginal-8186
 
 ## 3.10. Buzzer z zasilaniem LiPo Iflight YR50B_S Finder Buzzer 100dB
 ![Buzzer z zasilaniem LiPo Iflight YR50B_S Finder Buzzer 100dB](Images/Buzzer%20z%20zasilaniem%20LiPo%20Iflight%20YR50B_S%20Finder%20Buzzer%20100dB.jpg)
+
+## 3.11. Moduł przekaźnika Iduino - 1 kanał - styki 10A/250VAC - cewka 5V
+![Moduł przekaźnika Iduino - 1 kanał - styki 10A-250VAC - cewka 5V](Images/Moduł%20przekaźnika%20Iduino%20-%201%20kanał%20-%20styki%2010A-250VAC%20-%20cewka 5V.png)
+
+## 3.12. Czujnik napięcia 0-25V dzielnik 5V/25V
+![Czujnik napięcia 0-25V dzielnik 5V-25V](Images/Czujnik%20napięcia%200-25V%20dzielnik%205V-25V.png)
+
+## 3.13. Wentylator 08025DA-12P-AA-00 [80x80x25] 12VDC
+![Wentylator](Images/Wentylator.png)
+
+## 3.14. Arduino Due ARM Cortex
+![Arduino Due](Images/Arduino%20Due.png)
